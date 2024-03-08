@@ -8,11 +8,22 @@ import { Component } from '@angular/core';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  loginError: string = '';
 
 
   login() {
-    // Here you can implement the login logic
-    console.log('Logging in with username:', this.username, 'and password:', this.password);
+    // Check if the username and password are correct
+    if (this.username === 'patient' && this.password === 'password') {
+      // If correct, navigate to dashboard
+      console.log('Logging in with username:', this.username, 'and password:', this.password);
+    } else {
+      // If incorrect, display appropriate error message
+      if (this.username !== 'patient') {
+        this.loginError = 'Wrong username';
+      } else {
+        this.loginError = 'Wrong password';
+      }
+    }
   }
 
 }
