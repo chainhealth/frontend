@@ -1,14 +1,17 @@
 <div class="patient-details-container">
     <h3>Balance: {{ balance }}</h3>
-    <div *ngIf="prescriptions.length > 0">
+    <div *ngIf="patientPrescriptions.length > 0">
       <h3>Prescriptions</h3>
       <ul>
-        <li *ngFor="let prescription of prescriptions">
+        <li *ngFor="let prescription of patientPrescriptions">
           {{ prescription.name }} - {{ prescription.state }}
+          <button (click)="purchasePrescription(prescription)" [disabled]="prescription.state !== 'Approved'">Purchase</button>
         </li>
       </ul>
+      
+      
     </div>
-    <div *ngIf="prescriptions.length === 0">
+    <div *ngIf="patientPrescriptions.length === 0">
       <p>No prescriptions available.</p>
     </div>
   </div>

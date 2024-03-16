@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-patient-details',
@@ -7,6 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class PatientDetailsComponent {
   @Input() balance: number = 0; // input decorator allows flow from parent component
-  @Input() prescriptions: any[] = []; // Assuming prescriptions is an array of objects
+  @Input() patientPrescriptions: any[] = []; // Assuming prescriptions is an array of objects
+  @Output() purchaseEvent: EventEmitter<any> = new EventEmitter<any>();
 
+  purchasePrescription(prescription: any) {
+    this.purchaseEvent.emit(prescription);
+  }
 }
