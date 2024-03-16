@@ -1,13 +1,32 @@
 <div class="patient-container">
   <h2>Welcome, Patient!</h2>
-  <app-search (searchQueryChange)="filterData($event)"></app-search> <!-- Use searchQueryChange event instead -->
-  <ul>
-    <li *ngFor="let item of filteredData">
-      <!-- Display filtered data -->
-      {{ item.name }}
-    </li>
-  </ul>
-    <app-patient-details [balance]="patientBalance" [prescriptions]="patientPrescriptions"></app-patient-details>
+
+  <div>
+    <app-search (search)="onSearch($event)"></app-search>
   </div>
 
-    
+  <div *ngIf="filteredPrescriptions.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prescription of filteredPrescriptions">
+          <td>{{ prescription.name }}</td>
+          <td>{{ prescription.state }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filteredPrescriptions.length === 0 && searchTerm">
+    <p>No prescriptions found for ID: {{ searchTerm }}</p>
+  </div>
+  <app-patient-details
+    [balance]="patientBalance"
+    [prescriptions]="patientPrescriptions"
+  ></app-patient-details>
+</div>

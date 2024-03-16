@@ -16,15 +16,21 @@ export class PatientComponent {
   ]; // Example prescriptions
 
 
-  searchData: any[] = []; // Data to be searched, e.g., patient data
-  filteredData: any[] = []; // Filtered data based on search query
+  // searchData: any[] = []; // Data to be searched, e.g., patient data
+  filteredPrescriptions: any[] = []; // Filtered data based on search query
+  searchTerm: string = '';
 
 
-  filterData(searchQuery: string) {
-    this.filteredData = this.searchData.filter(item => {
-      // Implement your filtering logic here
-      // For example, check if item properties contain the search query
-      return item.name.toLowerCase().includes(searchQuery.toLowerCase());
-    });
+  onSearch(searchTerm: string) {
+    console.log("input: ", searchTerm);
+    this.searchTerm = searchTerm; // Update searchTerm property
+    if (!searchTerm) {
+      this.filteredPrescriptions = []; // Clear filtered prescriptions if search term is empty
+      return;
+    }
+
+    this.filteredPrescriptions = this.patientPrescriptions.filter(prescription =>
+      prescription.name === searchTerm
+    );
   }
 }
