@@ -1,1 +1,15 @@
-<p>patient-details works!</p>
+<div class="patient-details-container">
+    <h3>Balance: {{ balance }}</h3>
+    <div *ngIf="prescriptions.length > 0">
+      <h3>Prescriptions</h3>
+      <ul>
+        <li *ngFor="let prescription of prescriptions">
+          {{ prescription.name }} - {{ prescription.state }}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="prescriptions.length === 0">
+      <p>No prescriptions available.</p>
+    </div>
+  </div>
+  
