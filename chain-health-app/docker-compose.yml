@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  chain-health-app:
+    container_name: chain-health-app-container
+    build: .
+    image: chain-health-app
+    ports:
+     - 80:80
+    expose:
+      - 80
+    networks:
+      - internalnet
+    volumes:
+      - .:/app  # Mount current directory to /app in the container
+
+networks:
+  internalnet:
+    driver: bridge
