@@ -1,2 +1,3 @@
 loading component done
 
+add bootstrap in the docker files

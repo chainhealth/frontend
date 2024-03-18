@@ -12,6 +12,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { DoctorReportComponent } from './doctor/doctor-report/doctor-report.component';
 import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './home/home.component';
+import { GeneralNavbarComponent } from './shared/general-navbar/general-navbar.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AboutComponent } from './about/about.component';
     LoadingComponent,
     DoctorComponent,
     DoctorReportComponent,
-    AboutComponent
+    AboutComponent,
+    HomeComponent,
+    GeneralNavbarComponent
   ],
   imports: [
     BrowserModule,
