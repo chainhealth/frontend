@@ -11,6 +11,7 @@ import { SearchComponent } from './shared/search/search.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { DoctorReportComponent } from './doctor/doctor-report/doctor-report.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DoctorReportComponent } from './doctor/doctor-report/doctor-report.comp
     SearchComponent,
     LoadingComponent,
     DoctorComponent,
-    DoctorReportComponent
+    DoctorReportComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
