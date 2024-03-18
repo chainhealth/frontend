@@ -9,6 +9,7 @@ import { PatientComponent } from './patient/patient.component';
 import { PatientDetailsComponent } from './patient/patient-details/patient-details.component';
 import { SearchComponent } from './shared/search/search.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { DoctorComponent } from './doctor/doctor.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
     PatientComponent,
     PatientDetailsComponent,
     SearchComponent,
-    LoadingComponent
+    LoadingComponent,
+    DoctorComponent
   ],
   imports: [
     BrowserModule,
