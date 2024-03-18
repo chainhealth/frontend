@@ -1,0 +1,18 @@
+<div>
+  <label for="report">Report:</label>
+  <textarea id="report" [(ngModel)]="report"></textarea>
+</div>
+<div>
+  <label for="prescription">Prescription:</label>
+  <input type="text" id="prescription" [(ngModel)]="prescription">
+  <button (click)="addPrescription()">Add</button>
+</div>
+<div *ngIf="prescriptions.length > 0">
+  <h3>Prescriptions:</h3>
+  <ul>
+    <li *ngFor="let prescription of prescriptions">{{ prescription }}</li>
+  </ul>
+</div>
+<div>
+  <button (click)="submitReport()">Submit Report</button>
+</div>

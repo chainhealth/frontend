@@ -47,4 +47,15 @@
       <li *ngFor="let prescription of oldPrescriptions">{{ prescription }}</li>
     </ul>
   </div>
+
+  <div *ngIf="patientFound">
+    <!-- Existing code... -->
   
+    <!-- Button to toggle report section -->
+    <button (click)="toggleReportSection()">Toggle Report Section</button>
+  
+    <!-- DoctorReportComponent -->
+    <div *ngIf="showReportSection">
+      <app-doctor-report (reportSubmitted)="handleReportSubmission($event)"></app-doctor-report>
+    </div>
+  </div>

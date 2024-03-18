@@ -86,7 +86,28 @@ export class DoctorComponent {
       }
     }
   }
-  
+  // handleReportSubmission(event: { report: string, prescription: string }) {
+  //   // Handle the submitted report and prescription
+  //   const { report, prescription } = event;
+  //   console.log('Submitted report:', report);
+  //   console.log('Submitted prescription:', prescription);
+  //   // Perform any further actions, such as saving the data
+  // }
+
+
+  showReportSection: boolean = false; // Flag to toggle report section visibility
+
+  toggleReportSection() {
+    this.showReportSection = !this.showReportSection;
+  }
+
+  handleReportSubmission(eventData: { report: string, prescriptions: string[] }) {
+    // Handle the submitted report and prescriptions here
+    console.log('Report:', eventData.report);
+    console.log('Prescriptions:', eventData.prescriptions);
+  }
+      
 }
+
 
 

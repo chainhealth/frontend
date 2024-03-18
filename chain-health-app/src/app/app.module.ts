@@ -10,6 +10,7 @@ import { PatientDetailsComponent } from './patient/patient-details/patient-detai
 import { SearchComponent } from './shared/search/search.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { DoctorComponent } from './doctor/doctor.component';
+import { DoctorReportComponent } from './doctor/doctor-report/doctor-report.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DoctorComponent } from './doctor/doctor.component';
     PatientDetailsComponent,
     SearchComponent,
     LoadingComponent,
-    DoctorComponent
+    DoctorComponent,
+    DoctorReportComponent
   ],
   imports: [
     BrowserModule,
