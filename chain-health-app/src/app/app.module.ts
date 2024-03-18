@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PatientComponent } from './patient/patient.component';
 import { PatientDetailsComponent } from './patient/patient-details/patient-details.component';
 import { SearchComponent } from './shared/search/search.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SearchComponent } from './shared/search/search.component';
     LoginComponent,
     PatientComponent,
     PatientDetailsComponent,
-    SearchComponent
+    SearchComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

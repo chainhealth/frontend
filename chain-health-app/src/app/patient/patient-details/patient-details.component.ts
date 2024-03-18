@@ -13,4 +13,6 @@ export class PatientDetailsComponent {
   purchasePrescription(prescription: any) {
     this.purchaseEvent.emit(prescription);
   }
+
+  
 }

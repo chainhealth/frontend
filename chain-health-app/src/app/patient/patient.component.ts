@@ -35,14 +35,20 @@ export class PatientComponent {
     );
   }
 
+  isLoading: boolean = false;
+
   purchasePrescription(prescription: any) {
-    if (prescription.state === 'Approved') {
-      prescription.state = 'Purchased';
-      console.log(this.patientPrescriptions);
-      // this.handlePurchaseEvent.emit(prescription); // Emit an event when prescription is purchased
-    } else {
-      console.log('Cannot purchase prescription. State is not "Approved".');
-    }
+    this.isLoading = true; // Show loading component
+    // Simulate API call delay with setTimeout
+    setTimeout(() => {
+      if (prescription.state === 'Approved') {
+        prescription.state = 'Purchased';
+        console.log('Prescription purchased:', prescription);
+      } else {
+        console.log('Cannot purchase prescription. State is not "Approved".');
+      }
+      this.isLoading = false; // Hide loading component after 3 seconds
+    }, 3000); // Wait for 3 seconds
   }
 
   handlePurchaseEvent(prescription: any) {
@@ -51,11 +57,27 @@ export class PatientComponent {
       (p) => p.name === prescription.name
     );
     if (foundPrescription) {
-      // Update the state of the prescription to "Purchased"
-      console.log(this.patientPrescriptions); // ofc until api is added it wont actually work as session restarts when refreshed or something like that array will be refreshed
-      foundPrescription.state = 'Purchased';
-    } else {
+      this.isLoading = true; // Show loading component
+      // Simulate API call delay with setTimeout
+      setTimeout(() => {
+        if (prescription.state === 'Approved') {
+          prescription.state = 'Purchased';
+          console.log('Prescription purchased:', prescription);
+        } else {
+          console.log('Cannot purchase prescription. State is not "Approved".');
+        }
+        this.isLoading = false; // Hide loading component after 3 seconds
+      }, 3000); // Wait for 3 seconds else {
       console.log('Prescription not found.');
     }
   }
 }
+// purchasePrescription(prescription: any) {
+//   if (prescription.state === 'Approved') {
+//     prescription.state = 'Purchased';
+//     console.log(this.patientPrescriptions);
+//     // this.handlePurchaseEvent.emit(prescription); // Emit an event when prescription is purchased
+//   } else {
+//     console.log('Cannot purchase prescription. State is not "Approved".');
+//   }
+// }
