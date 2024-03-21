@@ -14,6 +14,7 @@ import { DoctorReportComponent } from './doctor/doctor-report/doctor-report.comp
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { GeneralNavbarComponent } from './shared/general-navbar/general-navbar.component';
+import { PharmacyComponent } from './pharmacy/pharmacy.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GeneralNavbarComponent } from './shared/general-navbar/general-navbar.c
     DoctorReportComponent,
     AboutComponent,
     HomeComponent,
-    GeneralNavbarComponent
+    GeneralNavbarComponent,
+    PharmacyComponent
   ],
   imports: [
     BrowserModule,
