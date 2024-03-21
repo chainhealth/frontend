@@ -1,1 +1,21 @@
-<p>pharmacy works!</p>
+<app-loading [isVisible]="isLoading"></app-loading>
+
+<div class="pharmacy-container">
+  <h2>Pharmacy</h2>
+  
+  <!-- Search Component -->
+  <app-search (search)="searchPatient($event)"></app-search>  
+  <!-- Patient Details Component -->
+  <app-patient-details 
+    *ngIf="patientFound" 
+    [balance]="patient.balance" 
+    [patientPrescriptions]="patient.prescriptions" 
+    [isPharmacyView]="true" 
+    (purchaseEvent)="sellPrescription($event)"> <!--change name to purchase or sell-->>
+    
+  </app-patient-details>
+  
+  <div *ngIf="!patientFound && searchPerformed">
+    <p>No patient found with ID: {{ patientId }}</p>
+  </div>
+</div>

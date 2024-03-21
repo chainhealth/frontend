@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-patient',
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class PatientComponent {
   // these will be passed down to patient details by @Input
+  @Input() isPharmacyView: boolean = false;
   patientBalance: number = 500;
   patientPrescriptions: any[] = [
     { name: 'Prescription 1', state: 'Pending' },
@@ -21,7 +22,7 @@ export class PatientComponent {
   filteredPrescriptions: any[] = []; // Filtered data based on search query
   searchTerm: string = '';
   purchaseEvent: any;
-
+  // add ispharmacyview=false
   onSearch(searchTerm: string) {
     console.log('input: ', searchTerm);
     this.searchTerm = searchTerm; // Update searchTerm property
