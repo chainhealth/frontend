@@ -1,0 +1,48 @@
+<h2>Insurance</h2>
+
+
+<app-search (search)="searchPatient($event)"></app-search>
+
+<div *ngIf="!searchedPatient">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Balance</th>
+        <th>Claimed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patients">
+        <td>{{ patient.name }}</td>
+        <td>{{ patient.id }}</td>
+        <td>{{ patient.balance }}</td>
+        <td>{{ patient.claimed }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="searchedPatient">
+    <div>
+        <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Balance</th>
+                <th>Claimed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ searchedPatient.name }}</td>
+                <td>{{ searchedPatient.id }}</td>
+                <td>{{ searchedPatient.balance }}</td>
+                <td>{{ searchedPatient.claimed }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
