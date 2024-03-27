@@ -1,0 +1,14 @@
+<h2>Patient Details</h2>
+<p>ID: {{ selectedPatient?.id }}</p>
+<p>Name: {{ selectedPatient?.name }}</p>
+<p>Balance: {{ selectedPatient?.balance }}</p>
+<p>Claimed: {{ selectedPatient?.claimed }}</p>
+
+<h2>Prescriptions</h2>
+<ul>
+  <li *ngFor="let prescription of selectedPatient?.prescriptions">
+    Prescription ID: {{ prescription.id }}<br>
+    Name: {{ prescription.name }}<br>
+    State: {{ prescription.state }}
+  </li>
+</ul>

@@ -1,3 +1,9 @@
-loading component done
+loading component tailwind
 
 add bootstrap in the docker files
+
+add contact form tailwind
+
+add pagination tailwind
+
+search tailwind
