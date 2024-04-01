@@ -1,12 +1,68 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+  <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="/assets/logo.png" alt="Logo" class="img-fluid">
+          <img src="/assets/logo.png" alt="Logo" class="img-fluid">
       </a>
-  
-      <!-- Spacer to push the login button to the right -->
+
       <div class="flex-grow-1"></div>
 
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="#">Home </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/about">About</a>
+              </li>
+          </ul>
+          <a class="btn btn-primary my-2 my-lg-0" href="/login">Login</a>
+      </div>
+  </div>
+</nav> -->
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="/assets/logo.png" alt="Logo" class="img-fluid">
+        </a>
+  
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+            </ul>
+            <ng-container *ngIf="isLoggedIn; else loginButton">
+              <button class="btn btn-primary my-2 my-lg-0" (click)="logout()">Logout</button>
+            </ng-container>
+            <ng-template #loginButton>
+              <a class="btn btn-primary my-2 my-lg-0" href="/login">Login</a>
+            </ng-template>
+        </div>
+    </div>
+  </nav> -->
+
+  <!-- <nav class="navbar navbar-expand-lg justify-content-between fixed-top" [ngClass]="{ 'navbar-light': !isTransparent, 'navbar-dark': isTransparent }" [ngStyle]="{ 'background-color': isTransparent ? 'transparent' : 'light' }"> -->
+<!-- <nav class="navbar navbar-expand-lg justify-content-between fixed-top" [ngClass]="{ 'navbar-light': !isTransparent, 'navbar-dark': isTransparent }" [ngStyle]="{ 'background-color': isTransparent ? 'transparent' : '#ffffff', 'border': !isTransparent ? '1px solid #e0e0e0' : 'none' }">
+
+    <div class="container">  
+    <a class="navbar-brand" href="#">
+        <img src="/assets/logo.png" alt="Logo" class="img-fluid">
+      </a>
   
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,16 +72,85 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home </a>
+            <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/about">About</a>
           </li>
-          <!-- Add more navbar links as needed -->
         </ul>
-        <!-- Login button -->
-        <a class="btn btn-primary my-2 my-lg-0" href="/login">Login</a>
+        <ng-container *ngIf="isLoggedIn; else loginButton">
+          <button class="btn btn-primary my-2 my-lg-0" (click)="logout()">Logout</button>
+        </ng-container>
+        <ng-template #loginButton>
+          <a class="btn btn-primary my-2 my-lg-0" href="/login">Login</a>
+        </ng-template>
       </div>
     </div>
   </nav>
- 
+   -->
+
+
+   <!-- Desktop version of the navbar -->
+<nav class="navbar navbar-expand-lg justify-content-between fixed-top" 
+[ngClass]="{ 'navbar-light': !isTransparent, 'navbar-dark': isTransparent }" 
+[ngStyle]="{ 'background-color': isTransparent ? 'transparent' : '#ffffff', 'border': !isTransparent ? '1px solid #e0e0e0' : 'none' }"
+*ngIf="!isMobile">
+<div class="container">  
+<a class="navbar-brand" href="#">
+   <img src="/assets/logo.png" alt="Logo" class="img-fluid">
+ </a>
+
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+ </button>
+
+ <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   <ul class="navbar-nav mr-auto">
+     <li class="nav-item active">
+       <a class="nav-link" href="#">Home</a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="/about">About</a>
+     </li>
+   </ul>
+   <ng-container *ngIf="isLoggedIn; else loginButton">
+     <button class="btn btn-primary my-2 my-lg-0" (click)="logout()">Logout</button>
+   </ng-container>
+   <ng-template #loginButton>
+     <a class="btn btn-primary my-2 my-lg-0" href="/login">Login</a>
+   </ng-template>
+ </div>
+</div>
+</nav>
+
+<!-- Mobile version of the navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between fixed-top" *ngIf="isMobile">
+<div class="container">  
+<a class="navbar-brand" href="#">
+   <img src="/assets/logo.png" alt="Logo" class="img-fluid">
+ </a>
+
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+ </button>
+
+ <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   <ul class="navbar-nav mr-auto">
+     <li class="nav-item active">
+       <a class="nav-link" href="#">Home</a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="/about">About</a>
+     </li>
+   </ul>
+   <ng-container *ngIf="isLoggedIn; else loginButton">
+     <button class="btn btn-primary my-2 my-lg-0" (click)="logout()">Logout</button>
+   </ng-container>
+   <ng-template #loginButton>
+     <a class="btn btn-primary my-2 my-lg-0" href="/login">Login</a>
+   </ng-template>
+ </div>
+</div>
+</nav>

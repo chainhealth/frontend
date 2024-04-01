@@ -7,3 +7,16 @@ add contact form tailwind
 add pagination tailwind
 
 search tailwind
+
+
+
+design:
+    navbar
+    dashboards with lists
+    login
+    search
+    loading
+    home
+    about
+    contact
+    pagination

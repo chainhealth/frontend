@@ -18,6 +18,8 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { InsuranceComponent } from './insurance/insurance.component';
 import { PatientInsuranceDetailsComponent } from './insurance/patient-insurance-details/patient-insurance-details.component';
 import { InsuranceClaimsComponent } from './insurance/insurance-claims/insurance-claims.component';
+import { HeroComponent } from './hero/hero.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { InsuranceClaimsComponent } from './insurance/insurance-claims/insurance
     PharmacyComponent,
     InsuranceComponent,
     PatientInsuranceDetailsComponent,
-    InsuranceClaimsComponent
+    InsuranceClaimsComponent,
+    HeroComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
