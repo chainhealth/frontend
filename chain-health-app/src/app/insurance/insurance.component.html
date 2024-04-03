@@ -1,5 +1,11 @@
 <h2>Insurance</h2>
 
+<div class="example-header">
+  <mat-form-field>
+    <input matInput #filterInput (keyup)="applyFilter()" placeholder="Filter">
+  </mat-form-field>
+</div>
+
 <div class="example-container mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
 
