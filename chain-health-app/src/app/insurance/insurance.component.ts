@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-insurance',
   templateUrl: './insurance.component.html',
-  styleUrl: './insurance.component.scss'
+  styleUrls: ['./insurance.component.scss']
 })
 export class InsuranceComponent {
   patients: any[] = [
@@ -14,42 +18,107 @@ export class InsuranceComponent {
       claimed: 200,
       prescriptions: [
         { id: 1, name: 'Prescription 1', state: 'Approved' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-        // Add more prescriptions as needed
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
       ]
     },
     { 
-      id: 2, 
+      id: 12, 
+      name: 'John Doe', 
+      balance: 500,
+      claimed: 200,
+      prescriptions: [
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
+      ]
+    },
+    { 
+      id: 13, 
+      name: 'John Doe', 
+      balance: 500,
+      claimed: 200,
+      prescriptions: [
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
+      ]
+    },
+    { 
+      id: 14, 
+      name: 'John Doe', 
+      balance: 500,
+      claimed: 200,
+      prescriptions: [
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
+      ]
+    },
+    { 
+      id: 15, 
+      name: 'John Doe', 
+      balance: 500,
+      claimed: 200,
+      prescriptions: [
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
+      ]
+    },
+    { 
+      id: 16, 
+      name: 'John Doe', 
+      balance: 500,
+      claimed: 200,
+      prescriptions: [
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
+      ]
+    },
+    { 
+      id: 167, 
+      name: 'John Doe', 
+      balance: 500,
+      claimed: 200,
+      prescriptions: [
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
+      ]
+    },
+    { 
+      id: 165, 
+      name: 'John Doe', 
+      balance: 500,
+      claimed: 200,
+      prescriptions: [
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' }
+      ]
+    },
+    { 
+      id: 2655, 
       name: 'Jane Smith', 
       balance: 700,
       claimed: 300,
       prescriptions: [
         { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' },
-        // Add more prescriptions as needed
+        { id: 2, name: 'Prescription 4', state: 'Pending' }
       ]
     }
   ];
-  
-  searchedPatient: any | null = null;
 
-  searchPatient(patientIdString: string) {
-    const patientId = parseInt(patientIdString, 10);
-    console.log('input: ', patientId);
-    if (isNaN(patientId)) {
-      this.searchedPatient = null; // Clear searchedPatient if search term is not a valid number
-      return;
-    }
-  
-    // Loop through patients array to find the patient with matching ID
-    this.searchedPatient = this.patients.find(patient => patient.id === patientId);
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ['name', 'id', 'balance', 'claimed'];
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private router: Router) {
+    this.dataSource = new MatTableDataSource(this.patients);
   }
 
-
-  constructor(private router: Router) {}
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
 
   viewPrescriptions(patientId: number) {
     this.router.navigate(['/insurance-claims', patientId]);
   }
-  
 }

@@ -1,51 +1,35 @@
-<!-- <div *ngIf="!isNavigatedToClaims"> -->
 <h2>Insurance</h2>
 
-<app-search (search)="searchPatient($event)"></app-search>
+<div class="example-container mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
 
-<div *ngIf="!searchedPatient">
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>ID</th>
-        <th>Balance</th>
-        <th>Claimed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let patient of patients" (click)="viewPrescriptions(patient.id)">
-        <td>{{ patient.name }}</td>
-        <td>{{ patient.id }}</td>
-        <td>{{ patient.balance }}</td>
-        <td>{{ patient.claimed }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Balance Column -->
+    <ng-container matColumnDef="balance">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Balance </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.balance}} </mat-cell>
+    </ng-container>
+
+    <!-- Claimed Column -->
+    <ng-container matColumnDef="claimed">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Claimed </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.claimed}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewPrescriptions(row.id)"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
-
-<div *ngIf="searchedPatient">
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>ID</th>
-          <th>Balance</th>
-          <th>Claimed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr (click)="viewPrescriptions(searchedPatient.id)">
-          <td>{{ searchedPatient.name }}</td>
-          <td>{{ searchedPatient.id }}</td>
-          <td>{{ searchedPatient.balance }}</td>
-          <td>{{ searchedPatient.claimed }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<!-- <a [routerLink]="['/insurance-claims', searchedPatient.id]">{{ searchedPatient.name }}</a> -->
-
-<!-- </div> -->
