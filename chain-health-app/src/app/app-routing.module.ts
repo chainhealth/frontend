@@ -9,16 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 
-
 const routes: Routes = [
-  { path: 'insurance-claims/:patientId', component: InsuranceClaimsComponent },
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
-  { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard] },
+  { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
   { path: 'pharmacy', component: PharmacyComponent, canActivate: [AuthGuard] },
-  { path: 'hospital', component: DoctorComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '' } // Redirect any other routes to home
+  { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard] },
+  // Add more routes as needed
 ];
 
 @NgModule({
