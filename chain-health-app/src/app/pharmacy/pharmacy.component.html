@@ -2,19 +2,55 @@
 
 <div class="pharmacy-container">
   <h2>Pharmacy</h2>
-  
+
   <!-- Search Component -->
-  <app-search (search)="searchPatient($event)"></app-search>  
-  <!-- Patient Details Component -->
-  <app-patient-details 
-    *ngIf="patientFound" 
-    [balance]="patient.balance" 
-    [patientPrescriptions]="patient.prescriptions" 
-    [isPharmacyView]="true" 
-    (purchaseEvent)="sellPrescription($event)"> <!--change name to purchase or sell-->>
-    
-  </app-patient-details>
-  
+  <app-search (search)="searchPatient($event)"></app-search>
+
+  <div *ngIf="patientFound">
+    <h4>Balance: {{ patient.balance }}</h4>
+    <div class="example-header">
+      <mat-form-field>
+        <input matInput #filterInput (keyup)="applyFilter($event)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+
+    <div class="example-container mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+        <!-- State Column -->
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+          <td mat-cell *matCellDef="let row"> {{row.state}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row">
+            <button 
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+              (click)="sellPrescription(row)" 
+              [disabled]="row.state !== 'Approved'"
+            >
+              Sell
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+
   <div *ngIf="!patientFound && searchPerformed">
     <p>No patient found with ID: {{ patientId }}</p>
   </div>

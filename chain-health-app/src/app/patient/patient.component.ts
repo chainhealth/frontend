@@ -13,6 +13,7 @@ export class PatientComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
+  patientBalance: number = 500;
 
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['name', 'state', 'action'];
