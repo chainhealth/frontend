@@ -1,39 +1,47 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
-  styleUrl: './patient.component.scss',
+  styleUrls: ['./patient.component.scss']
 })
-export class PatientComponent {
-  // these will be passed down to patient details by @Input
+export class PatientComponent implements AfterViewInit {
   @Input() isPharmacyView: boolean = false;
-  patientBalance: number = 500;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
+
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ['name', 'state', 'action'];
+
   patientPrescriptions: any[] = [
     { name: 'Prescription 1', state: 'Pending' },
     { name: 'Prescription 2', state: 'Rejected' },
     { name: 'Prescription 3', state: 'Approved' },
     { name: 'Prescription 4', state: 'Pending' },
     { name: 'Prescription 5', state: 'Rejected' },
-    { name: 'Prescription 6', state: 'Purchased' }, // purchased here means that patient has actually received it
+    { name: 'Prescription 6', state: 'Purchased' },
   ]; // Example prescriptions
 
-  // searchData: any[] = []; // Data to be searched, e.g., patient data
-  filteredPrescriptions: any[] = []; // Filtered data based on search query
-  searchTerm: string = '';
-  purchaseEvent: any;
-  // add ispharmacyview=false
-  onSearch(searchTerm: string) {
-    console.log('input: ', searchTerm);
-    this.searchTerm = searchTerm; // Update searchTerm property
-    if (!searchTerm) {
-      this.filteredPrescriptions = []; // Clear filtered prescriptions if search term is empty
-      return;
-    }
+  constructor() {
+    this.dataSource = new MatTableDataSource(this.patientPrescriptions);
+  }
 
-    this.filteredPrescriptions = this.patientPrescriptions.filter(
-      (prescription) => prescription.name === searchTerm
-    );
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   isLoading: boolean = false;
