@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-general-navbar',
@@ -10,29 +11,30 @@ export class GeneralNavbarComponent {
   isTransparent: boolean = true;
   isMobile: boolean = false;
 
-  constructor() {
+  constructor(private router: Router) {
     // You can add logic here to check if the user is logged in
     // and set the value of isLoggedIn accordingly
     // For demonstration purposes, I'll assume the user is logged in
+    
     this.isLoggedIn = true;
-    this.onWindowChange(); // Initialize properties on component initialization
+    // this.onWindowChange(); // Initialize properties on component initialization
   }
 
-  @HostListener('window:scroll', [])
-  @HostListener('window:resize', [])
-  onWindowChange() {
-    // Using debounce to avoid too many updates while resizing
-    this.debounce(() => {
-      const yOffset = window.pageYOffset;
-      const screenWidth = window.innerWidth;
+  // @HostListener('window:scroll', [])
+  // @HostListener('window:resize', [])
+  // onWindowChange() {
+  //   // Using debounce to avoid too many updates while resizing
+  //   this.debounce(() => {
+  //     const yOffset = window.pageYOffset;
+  //     const screenWidth = window.innerWidth;
 
-      // Update transparency based on scroll position
-      this.isTransparent = yOffset < 600;
+  //     // Update transparency based on scroll position
+  //     this.isTransparent = yOffset < 600;
 
-      // Update mobile status based on screen width
-      this.isMobile = screenWidth <= 768;
-    }, 50)();
-  }
+  //     // Update mobile status based on screen width
+  //     this.isMobile = screenWidth <= 768;
+  //   }, 50)();
+  // }
 
   logout(): void {
     // Add logic here to handle logout
@@ -54,5 +56,13 @@ export class GeneralNavbarComponent {
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     };
+  }
+  isMenuOpen: boolean = false;
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  isActive(route: string): boolean {
+    return this.router.url === route;
   }
 }

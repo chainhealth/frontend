@@ -7,10 +7,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  username: string = ''; // Property to bind with username input
+  password: string = ''; // Property to bind with password input
+  errorMessage: string = ''; // Property to hold error message
 
   constructor(private router: Router) { }
 
-  login(username: string, password: string): void {
+  login(): void {
+    // Retrieve username and password from properties
+    const { username, password } = this;
+
+    // Reset error message
+    this.errorMessage = '';
+
     // Check username and password
     if (username === 'patient' && password === 'password') {
       this.router.navigate(['/patient']);
@@ -21,7 +30,8 @@ export class LoginComponent {
     } else if (username === 'insurance' && password === 'password') {
       this.router.navigate(['/insurance']);
     } else {
-      // Handle invalid credentials
+      // Set error message for invalid credentials
+      this.errorMessage = 'Wrong username or password';
       console.log('Invalid credentials');
     }
   }
