@@ -1,61 +1,30 @@
-<div>
-    <label for="patientId">Enter Patient ID:</label>
-    <input type="text" id="patientId" [(ngModel)]="patientId">
-    <button (click)="searchPatient()">Search</button>
-  </div>
-  <div *ngIf="patientFound">
-    <h2>Patient Details</h2>
-    <p>Patient ID: {{ patient.id }}</p>
-    <p>Name: {{ patient.name }}</p>
-    <p>Age: {{ patient.age }}</p>
-    <h3>Medical History</h3>
-    <p>Chronic Diseases: {{ patient.medicalHistory.chronicDiseases.join(', ') }}</p>
-    <p>Allergies: {{ patient.medicalHistory.allergies.join(', ') }}</p>
-    <p>Surgeries: {{ patient.medicalHistory.surgeries.join(', ') }}</p>
-    <h4>Medications</h4>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Dosage</th>
-          <th>Frequency</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let medication of patient.medicalHistory.medications">
-          <td>{{ medication.name }}</td>
-          <td>{{ medication.dosage }}</td>
-          <td>{{ medication.frequency }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
-  <div *ngIf="!patientFound && searchPerformed">
-    <p>No patient found with ID: {{ patientId }}</p>
-  </div>
-  <div *ngIf="patientFound">
-    <!-- Display patient details -->
-    <h2>Patient Details</h2>
-    <p>Patient ID: {{ patient.id }}</p>
-    <p>Name: {{ patient.name }}</p>
-    <p>Age: {{ patient.age }}</p>
-  
-    <!-- Display old prescriptions -->
-    <h3>Old Prescriptions</h3>
-    <ul>
-      <li *ngFor="let prescription of oldPrescriptions">{{ prescription }}</li>
-    </ul>
-  </div>
 
-  <div *ngIf="patientFound">
-    <!-- Existing code... -->
-  
-    <!-- Button to toggle report section -->
-    <button (click)="toggleReportSection()">Toggle Report Section</button>
-  
-    <!-- DoctorReportComponent -->
-    <div *ngIf="showReportSection">
-      <app-doctor-report (reportSubmitted)="handleReportSubmission($event)"></app-doctor-report>
-    </div>
+<h2>Doctor</h2>
+
+<app-search (search)="searchPatient($event)"></app-search>
+
+<div *ngIf="patientFound">
+  <!-- Display patient details -->
+  <h2>Patient Details</h2>
+  <p>Patient ID: {{ patient.id }}</p>
+  <p>Name: {{ patient.name }}</p>
+  <p>Age: {{ patient.age }}</p>
+
+  <!-- Display old prescriptions -->
+  <h3>Old Prescriptions</h3>
+  <ul>
+    <li *ngFor="let prescription of oldPrescriptions">{{ prescription }}</li>
+  </ul>
+
+  <!-- Button to toggle report section -->
+  <button (click)="toggleReportSection()">Toggle Report Section</button>
+
+  <!-- DoctorReportComponent -->
+  <div *ngIf="showReportSection">
+    <app-doctor-report (reportSubmitted)="handleReportSubmission($event)"></app-doctor-report>
   </div>
+</div>
+
+<div *ngIf="!patientFound && searchPerformed">
+  <p>No patient found with ID: {{ patientId }}</p>
+</div>

@@ -65,25 +65,20 @@ export class DoctorComponent {
   patient: any = {}; // Placeholder for patient details
   oldPrescriptions: string[] = []; // Placeholder for old prescriptions
 
-  searchPatient() {
-    // Convert input value to a number if it's not null
-    const id = this.patientId !== null ? +this.patientId : null;
-    console.log('Searching with ID:', id); // Log the converted ID
+  searchPatient(id: string) {
+    const patientId = parseInt(id, 10);
+    console.log('Searching with ID:', patientId);
     
-    if (id !== null) {
-      this.patient = this.patients.find(p => {
-        console.log('Patient ID in array:', p.id); // Log the patient ID from the array
-        return p.id === id;
-      });
-      if (this.patient) {
-        this.patientFound = true;
-        this.searchPerformed = true;
-        this.oldPrescriptions = ['Prescription 1', 'Prescription 2']; // Placeholder data for prescriptions
-      } else {
-        this.patientFound = false;
-        this.searchPerformed = true;
-        this.oldPrescriptions = [];
-      }
+    const foundPatient = this.patients.find(p => p.id === patientId);
+    if (foundPatient) {
+      this.patient = foundPatient;
+      this.patientFound = true;
+      this.searchPerformed = true;
+      this.oldPrescriptions = ['Prescription 1', 'Prescription 2'];
+    } else {
+      this.patientFound = false;
+      this.searchPerformed = true;
+      this.oldPrescriptions = [];
     }
   }
   // handleReportSubmission(event: { report: string, prescription: string }) {
