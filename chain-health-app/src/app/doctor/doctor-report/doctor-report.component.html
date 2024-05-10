@@ -1,18 +1,30 @@
-<div>
-  <label for="report">Report:</label>
-  <textarea id="report" [(ngModel)]="report"></textarea>
-</div>
-<div>
-  <label for="prescription">Prescription:</label>
-  <input type="text" id="prescription" [(ngModel)]="prescription">
-  <button (click)="addPrescription()">Add</button>
-</div>
-<div *ngIf="prescriptions.length > 0">
-  <h3>Prescriptions:</h3>
-  <ul>
-    <li *ngFor="let prescription of prescriptions">{{ prescription }}</li>
-  </ul>
-</div>
-<div>
-  <button (click)="submitReport()">Submit Report</button>
+<div class="bg-gray-100 rounded-md p-4">
+  <div class="p-4">
+    <div class="mb-4">
+      <label for="report" class="block">Report:</label>
+      <textarea id="report" [(ngModel)]="report" class="w-full border rounded px-3 py-2"></textarea>
+    </div>
+    <div class="mb-4">
+      <div class="flex items-center mb-2">
+        <label for="medicationName" class="block mr-2 py-2">Medication:</label>
+        <input type="text" id="medicationName" [(ngModel)]="medicationName" class="w-1/3 border rounded px-3 py-2 mr-2">
+        <label for="dosage" class="block mr-2 ml-2 py-2">Dosage:</label>
+        <input type="text" id="dosage" [(ngModel)]="dosage" class="w-1/6 border rounded px-3 py-2 mr-2">
+        <label for="frequency" class="block mr-2 ml-2 py-2">Frequency:</label>
+        <input type="text" id="frequency" [(ngModel)]="frequency" class="w-1/3 border rounded px-3 py-2 mr-2">
+        <button (click)="addPrescription()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
+      </div>
+    </div>
+    <div *ngIf="prescriptions.length > 0" class="mb-4">
+      <h3>Prescriptions:</h3>
+      <ul>
+        <li *ngFor="let prescription of prescriptions">
+          {{ prescription.name }} - {{ prescription.dosage }} - {{ prescription.frequency }}
+        </li>
+      </ul>
+    </div>
+    <div>
+      <button (click)="submitReport()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit Report</button>
+    </div>
+  </div>
 </div>

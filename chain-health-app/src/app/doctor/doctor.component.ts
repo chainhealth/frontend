@@ -111,10 +111,17 @@ export class DoctorComponent {
     this.showReportSection = !this.showReportSection;
   }
 
-  handleReportSubmission(eventData: { report: string, prescriptions: string[] }) {
+  // handleReportSubmission(eventData: { report: string, prescriptions: string[] }) {
+  //   // Handle the submitted report and prescriptions here
+  //   console.log('Report:', eventData.report);
+  //   console.log('Prescriptions:', eventData.prescriptions);
+  // }
+  handleReportSubmission(eventData: { report: string, prescriptions: { name: string, dosage: string, frequency: string }[] }) {
     // Handle the submitted report and prescriptions here
     console.log('Report:', eventData.report);
     console.log('Prescriptions:', eventData.prescriptions);
   }
-      
+  handlePrescriptionAdded(prescription: { name: string, dosage: string, frequency: string }) {
+    console.log('Prescription added:', prescription);
+  }
 }

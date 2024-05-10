@@ -1,11 +1,11 @@
 <div class="p-4">
   <div class="mb-4">
-    <label for="patientId" class="block">Enter Patient ID:</label>
+    <label for="patientId" class="block mr-2">Enter Patient ID:</label>
     <input
       type="text"
       id="patientId"
       [(ngModel)]="patientId"
-      class="w-full border rounded px-3 py-2"
+      class=" border rounded px-3 py-2 mr-3"
     />
     <button
       (click)="patientId !== null && searchPatient(patientId.toString())"
@@ -118,8 +118,10 @@
 
       <div *ngIf="showReportSection" class="mt-4">
         <app-doctor-report
-          (reportSubmitted)="handleReportSubmission($event)"
-        ></app-doctor-report>
+        (reportSubmitted)="handleReportSubmission($event)"
+        (prescriptionAdded)="handlePrescriptionAdded($event)"
+      ></app-doctor-report>
+      
       </div>
     </div>
   </div>
