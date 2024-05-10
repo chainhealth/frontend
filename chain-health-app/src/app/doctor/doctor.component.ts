@@ -58,6 +58,21 @@ export class DoctorComponent {
             dosage: "20mg",
             frequency: "Once daily",
           },
+          {
+            name: "Atorvesagastatin",
+            dosage: "20mg",
+            frequency: "Once daily",
+          },
+          {
+            name: "Atorvastatin",
+            dosage: "20mg",
+            frequency: "Once daily",
+          },
+          {
+            name: "Atorvastatin",
+            dosage: "20mg",
+            frequency: "Once daily",
+          },
         ],
       }
     }

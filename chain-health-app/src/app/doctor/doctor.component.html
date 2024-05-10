@@ -1,105 +1,126 @@
-<h2>Doctor</h2>
-
-<app-search (search)="searchPatient($event)"></app-search>
-
-<div *ngIf="patientFound">
-  <!-- Display patient details -->
-  <h2>Patient Details</h2>
-  <p>Patient ID: {{ patient.id }}</p>
-  <p>Name: {{ patient.name }}</p>
-  <p>Age: {{ patient.age }}</p>
-
-  <!-- Display medical history -->
-  <h3>Medical History</h3>
-
-  <!-- Chronic Diseases -->
-  <h4>Chronic Diseases</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Disease</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let disease of patient.medicalHistory.chronicDiseases">
-        <td>{{ disease }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Allergies -->
-  <h4>Allergies</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Allergy</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let allergy of patient.medicalHistory.allergies">
-        <td>{{ allergy }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Surgeries -->
-  <h4>Surgeries</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Surgery</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let surgery of patient.medicalHistory.surgeries">
-        <td>{{ surgery }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Medications -->
-  <h4>Medications</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Dosage</th>
-        <th>Frequency</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let medication of patient.medicalHistory.medications">
-        <td>{{ medication.name }}</td>
-        <td>{{ medication.dosage }}</td>
-        <td>{{ medication.frequency }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Old Prescriptions -->
-  <h3>Old Prescriptions</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Prescription</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let prescription of oldPrescriptions">
-        <td>{{ prescription }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Button to toggle report section -->
-  <button (click)="toggleReportSection()">Toggle Report Section</button>
-
-  <!-- DoctorReportComponent -->
-  <div *ngIf="showReportSection">
-    <app-doctor-report (reportSubmitted)="handleReportSubmission($event)"></app-doctor-report>
+<div class="p-4">
+  <div class="mb-4">
+    <label for="patientId" class="block">Enter Patient ID:</label>
+    <input
+      type="text"
+      id="patientId"
+      [(ngModel)]="patientId"
+      class="w-full border rounded px-3 py-2"
+    />
+    <button
+      (click)="patientId !== null && searchPatient(patientId.toString())"
+      class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Search
+    </button>
   </div>
-</div>
 
-<div *ngIf="!patientFound && searchPerformed">
-  <p>No patient found with ID: {{ patientId }}</p>
+  <div *ngIf="patientFound" class="mb-4">
+    <div class="bg-gray-100 rounded-md p-4">
+      <h2 class="text-xl font-bold mb-2">Patient Details</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div>
+          <p class="font-bold">Patient ID:</p>
+          <p>{{ patient.id }}</p>
+        </div>
+        <div>
+          <p class="font-bold">Name:</p>
+          <p>{{ patient.name }}</p>
+        </div>
+        <div>
+          <p class="font-bold">Age:</p>
+          <p>{{ patient.age }}</p>
+        </div>
+      </div>
+
+      <h3 class="text-lg font-bold mt-4">Medical History</h3>
+      <div class="grid grid-cols-1 gap-4 mt-2">
+        <div class="bg-white shadow-md rounded-md p-4">
+          <p class="font-bold">Chronic Diseases:</p>
+          <ul class="list-disc ml-4">
+            <li *ngFor="let disease of patient.medicalHistory.chronicDiseases">
+              {{ disease }}
+            </li>
+          </ul>
+        </div>
+        <div class="bg-white shadow-md rounded-md p-4">
+          <p class="font-bold">Allergies:</p>
+          <ul class="list-disc ml-4">
+            <li *ngFor="let allergy of patient.medicalHistory.allergies">
+              {{ allergy }}
+            </li>
+          </ul>
+        </div>
+        <div class="bg-white shadow-md rounded-md p-4">
+          <p class="font-bold">Surgeries:</p>
+          <ul class="list-disc ml-4">
+            <li *ngFor="let surgery of patient.medicalHistory.surgeries">
+              {{ surgery }}
+            </li>
+          </ul>
+        </div>
+        <div class="bg-white shadow-md rounded-md p-4">
+          <p class="font-bold">Medications:</p>
+          <table class="w-full border-collapse border">
+            <thead>
+              <tr>
+                <th class="px-4 py-2 font-bold border">Name</th>
+                <th class="px-4 py-2 font-bold border">Dosage</th>
+                <th class="px-4 py-2 font-bold border">Frequency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let patient of patients; let i = index">
+                <ng-container *ngFor="let medication of patient.medicalHistory.medications; let j = index">
+                  <tr class="bg-white">
+                    <td class="px-4 py-2 border">{{ medication.name }}</td>
+                    <td class="px-4 py-2 border">{{ medication.dosage }}</td>
+                    <td class="px-4 py-2 border">{{ medication.frequency }}</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        
+        
+        <div class="bg-white shadow-md rounded-md p-4">
+        <h3 class="text-lg font-bold mt-4">Old Prescriptions</h3>
+        <ul class="list-disc ml-4">
+          <li *ngFor="let prescription of oldPrescriptions">
+            {{ prescription }}
+          </li>
+        </ul>
+        </div>
+        
+      </div>
+    </div>
+
+    <div *ngIf="!patientFound && searchPerformed" class="mb-4">
+      <p>No patient found with ID: {{ patientId }}</p>
+    </div>
+
+    <div *ngIf="patientFound" class="mb-4">
+      
+      <!-- <h3 class="text-lg font-bold mt-4">Old Prescriptions</h3>
+      <ul class="list-disc ml-4">
+        <li *ngFor="let prescription of oldPrescriptions">
+          {{ prescription }}
+        </li>
+      </ul> -->
+
+      <button
+        (click)="toggleReportSection()"
+        class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Toggle Report Section
+      </button>
+
+      <div *ngIf="showReportSection" class="mt-4">
+        <app-doctor-report
+          (reportSubmitted)="handleReportSubmission($event)"
+        ></app-doctor-report>
+      </div>
+    </div>
+  </div>
 </div>
