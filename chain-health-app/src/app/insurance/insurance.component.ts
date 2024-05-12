@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./insurance.component.scss']
 })
 export class InsuranceComponent {
+  // prescirptions here are not displayed on this page, api will call again in insurance claims (the detailed view of each patient when clicked upon)
   patients: any[] = [
     { 
       id: 1, 

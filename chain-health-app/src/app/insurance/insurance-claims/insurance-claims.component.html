@@ -1,14 +1,38 @@
 <h2>Patient Details</h2>
+<!-- these are not showing take care of it later -->
 <p>ID: {{ selectedPatient?.id }}</p>
 <p>Name: {{ selectedPatient?.name }}</p>
 <p>Balance: {{ selectedPatient?.balance }}</p>
 <p>Claimed: {{ selectedPatient?.claimed }}</p>
 
 <h2>Prescriptions</h2>
-<ul>
-  <li *ngFor="let prescription of selectedPatient?.prescriptions">
-    Prescription ID: {{ prescription.id }}<br>
-    Name: {{ prescription.name }}<br>
-    State: {{ prescription.state }}
-  </li>
-</ul>
+<div class="mat-elevation-z8">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+    <!-- Prescription ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Prescription ID</th>
+      <td mat-cell *matCellDef="let prescription">{{ prescription.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let prescription">{{ prescription.name }}</td>
+    </ng-container>
+
+    <!-- State Column -->
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+      <td mat-cell *matCellDef="let prescription">{{ prescription.state }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'name', 'state']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'name', 'state']"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+</div>
