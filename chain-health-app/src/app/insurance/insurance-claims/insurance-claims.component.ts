@@ -41,6 +41,7 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.selectedPatient = {}; // Initialize selectedPatient with an empty object
     this.route.params.subscribe(params => {
       const patientId = parseInt(params['patientId'], 10);
       this.fetchPrescriptions(patientId);
