@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
   selectedPatient: any = {};
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  displayedColumns: string[] = ['id', 'name', 'state'];
   patients: any[] = [
     { 
       id: 1, 
@@ -20,7 +21,12 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
       claimed: 200,
       prescriptions: [
         { id: 1, name: 'Prescription 1', state: 'Approved' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' }
+        { id: 2, name: 'Prescription 2', state: 'Pending' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' },
       ]
     },
     { 
@@ -32,7 +38,62 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
         { id: 1, name: 'Prescription 3', state: 'Approved' },
         { id: 2, name: 'Prescription 4', state: 'Pending' }
       ]
-    }
+    },
+    { 
+      id: 27, 
+      name: 'Jane Smith', 
+      balance: 700,
+      claimed: 300,
+      prescriptions: [
+        { id: 1, name: 'Prescription 3', state: 'Approved' },
+        { id: 2, name: 'Prescription 4', state: 'Pending' }
+      ]
+    },    { 
+      id: 6, 
+      name: 'Jane Smith', 
+      balance: 700,
+      claimed: 300,
+      prescriptions: [
+        { id: 1, name: 'Prescription 3', state: 'Approved' },
+        { id: 2, name: 'Prescription 4', state: 'Pending' }
+      ]
+    },    { 
+      id: 2, 
+      name: 'Jane Smith', 
+      balance: 700,
+      claimed: 300,
+      prescriptions: [
+        { id: 1, name: 'Prescription 3', state: 'Approved' },
+        { id: 2, name: 'Prescription 4', state: 'Pending' }
+      ]
+    },    { 
+      id: 3, 
+      name: 'Jane Smith', 
+      balance: 700,
+      claimed: 300,
+      prescriptions: [
+        { id: 1, name: 'Prescription 3', state: 'Approved' },
+        { id: 2, name: 'Prescription 4', state: 'Pending' }
+      ]
+    },    { 
+      id: 4, 
+      name: 'Jane Smith', 
+      balance: 700,
+      claimed: 300,
+      prescriptions: [
+        { id: 1, name: 'Prescription 3', state: 'Approved' },
+        { id: 2, name: 'Prescription 4', state: 'Pending' }
+      ]
+    },    { 
+      id: 5, 
+      name: 'Jane Smith', 
+      balance: 700,
+      claimed: 300,
+      prescriptions: [
+        { id: 1, name: 'Prescription 3', state: 'Approved' },
+        { id: 2, name: 'Prescription 4', state: 'Pending' }
+      ]
+    },
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -51,6 +112,8 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    console.log('Paginator: ', this.paginator);
+    console.log('Sort: ', this.sort);
   }
 
   fetchPrescriptions(patientId: number): void {

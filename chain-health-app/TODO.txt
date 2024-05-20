@@ -20,3 +20,10 @@ design:
     about
     contact
     pagination
+
+
+
+
+var approved by pharmacy
+doctor make a single object
+dropbox for doctor report meds

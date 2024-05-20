@@ -30,23 +30,29 @@ export class PharmacyComponent implements AfterViewInit {
       prescriptions: [
         { name: 'Prescription 3', state: 'Approved' },
         { name: 'Prescription 4', state: 'Pending' },
+        { name: 'Prescription 4', state: 'Pending' },
+        { name: 'Prescription 4', state: 'Pending' },
+        { name: 'Prescription 4', state: 'Pending' },
+        { name: 'Prescription 4', state: 'Pending' },
+        { name: 'Prescription 4', state: 'Pending' },
+        { name: 'Prescription 4', state: 'Pending' },
       ]
-    }
+    },
   ];
   patient: any = {};
   purchaseEvent: any;
   filteredPatients: any[] = [];
 
-  // Material Table properties
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
-  dataSource: MatTableDataSource<any>; // Explicitly specify the type
+  @ViewChild('paginator') matPaginator!: MatPaginator;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]); // Initialize with an empty array
   displayedColumns: string[] = ['name', 'state', 'action'];
 
   constructor() {
     // Initialize dataSource without any data initially
-    this.dataSource = new MatTableDataSource<any>([]);
+    this.dataSource = new MatTableDataSource<any>();
   }
 
   ngAfterViewInit() {

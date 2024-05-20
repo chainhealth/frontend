@@ -82,12 +82,3 @@ export class PatientComponent implements AfterViewInit {
     }
   }
 }
-// purchasePrescription(prescription: any) {
-//   if (prescription.state === 'Approved') {
-//     prescription.state = 'Purchased';
-//     console.log(this.patientPrescriptions);
-//     // this.handlePurchaseEvent.emit(prescription); // Emit an event when prescription is purchased
-//   } else {
-//     console.log('Cannot purchase prescription. State is not "Approved".');
-//   }
-// }
