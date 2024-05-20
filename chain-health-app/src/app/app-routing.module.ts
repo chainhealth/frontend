@@ -9,12 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AboutComponent } from './about/about.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
+  { path: 'patient/prescription/:id', component: PrescriptionsComponent },
   { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
   { path: 'pharmacy', component: PharmacyComponent, canActivate: [AuthGuard] },
   { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard] },

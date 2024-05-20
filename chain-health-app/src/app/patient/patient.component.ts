@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient',
@@ -19,15 +20,15 @@ export class PatientComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'state', 'action'];
 
   patientPrescriptions: any[] = [
-    { name: 'Prescription 1', state: 'Pending' },
-    { name: 'Prescription 2', state: 'Rejected' },
-    { name: 'Prescription 3', state: 'Approved' },
-    { name: 'Prescription 4', state: 'Pending' },
-    { name: 'Prescription 5', state: 'Rejected' },
-    { name: 'Prescription 6', state: 'Purchased' },
+    { id: 1, name: 'Prescription 1', state: 'Pending' },
+    { id: 2, name: 'Prescription 2', state: 'Rejected' },
+    { id: 3, name: 'Prescription 3', state: 'Approved' },
+    { id: 4, name: 'Prescription 4', state: 'Pending' },
+    { id: 5, name: 'Prescription 5', state: 'Rejected' },
+    { id: 6, name: 'Prescription 6', state: 'Purchased' },
   ]; // Example prescriptions
 
-  constructor() {
+  constructor(private router: Router) {
     this.dataSource = new MatTableDataSource(this.patientPrescriptions);
   }
 
@@ -61,24 +62,7 @@ export class PatientComponent implements AfterViewInit {
     }, 3000); // Wait for 3 seconds
   }
 
-  handlePurchaseEvent(prescription: any) {
-    // Find the prescription by name
-    const foundPrescription = this.patientPrescriptions.find(
-      (p) => p.name === prescription.name
-    );
-    if (foundPrescription) {
-      this.isLoading = true; // Show loading component
-      // Simulate API call delay with setTimeout
-      setTimeout(() => {
-        if (prescription.state === 'Approved') {
-          prescription.state = 'Purchased';
-          console.log('Prescription purchased:', prescription);
-        } else {
-          console.log('Cannot purchase prescription. State is not "Approved".');
-        }
-        this.isLoading = false; // Hide loading component after 3 seconds
-      }, 3000); // Wait for 3 seconds else {
-      console.log('Prescription not found.');
-    }
+  onRowClick(row: any) {
+    this.router.navigate(['/patient/prescription', row.id]);
   }
 }

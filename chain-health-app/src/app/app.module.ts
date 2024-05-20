@@ -27,6 +27,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { MatTableModule } from '@angular/material/table';
     PatientInsuranceDetailsComponent,
     InsuranceClaimsComponent,
     HeroComponent,
-    FooterComponent
+    FooterComponent,
+    PrescriptionsComponent
   ],
   imports: [
     BrowserModule,
