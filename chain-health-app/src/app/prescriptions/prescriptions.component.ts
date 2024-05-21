@@ -4,6 +4,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
+
+// todo method to take id and send it using api and returning real results
+
+
+
 @Component({
   selector: 'app-prescriptions',
   templateUrl: './prescriptions.component.html',

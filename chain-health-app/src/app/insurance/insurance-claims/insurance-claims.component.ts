@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
   selectedPatient: any = {};
+  prescriptionId: number | undefined; // Define prescriptionId as a number
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   displayedColumns: string[] = ['id', 'name', 'state'];
   patients: any[] = [
@@ -95,25 +96,26 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
       ]
     },
   ];
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    this.selectedPatient = {}; // Initialize selectedPatient with an empty object
     this.route.params.subscribe(params => {
       const patientId = parseInt(params['patientId'], 10);
-      this.fetchPrescriptions(patientId);
+      this.prescriptionId = parseInt(params['prescriptionId'], 10); // Parse prescriptionId from route params
+      if (!isNaN(patientId)) {
+        this.fetchPrescriptions(patientId);
+      } else {
+        this.router.navigate(['/insurance-claims']);
+      }
     });
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log('Paginator: ', this.paginator);
-    console.log('Sort: ', this.sort);
   }
 
   fetchPrescriptions(patientId: number): void {
@@ -131,5 +133,9 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  redirectToPrescription(patientId: number, prescriptionId: number): void {
+    this.router.navigate(['/insurance-claims', patientId, 'prescription', prescriptionId]);
   }
 }

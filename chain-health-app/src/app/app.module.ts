@@ -58,6 +58,7 @@ import { PrescriptionsComponent } from './prescriptions/prescriptions.component'
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+    
   ],
   providers: [
     provideAnimationsAsync()
