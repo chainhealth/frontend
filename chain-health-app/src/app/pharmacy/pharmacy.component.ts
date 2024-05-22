@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,7 +12,7 @@ export class PharmacyComponent implements AfterViewInit {
   @Input() isPharmacyView: boolean = true;
   patientFound: boolean = false;
   searchPerformed: boolean = false;
-  patientId: number | null = null; 
+  patientId: number | null = null;
   patients: any[] = [
     { 
       id: 1, 
@@ -30,30 +30,22 @@ export class PharmacyComponent implements AfterViewInit {
       prescriptions: [
         { name: 'Prescription 3', state: 'Approved' },
         { name: 'Prescription 4', state: 'Pending' },
-        { name: 'Prescription 4', state: 'Pending' },
-        { name: 'Prescription 4', state: 'Pending' },
-        { name: 'Prescription 4', state: 'Pending' },
-        { name: 'Prescription 4', state: 'Pending' },
-        { name: 'Prescription 4', state: 'Pending' },
-        { name: 'Prescription 4', state: 'Pending' },
+        { name: 'Prescription 5', state: 'Pending' },
+        { name: 'Prescription 6', state: 'Pending' },
+        { name: 'Prescription 7', state: 'Pending' },
+        { name: 'Prescription 8', state: 'Pending' },
+        { name: 'Prescription 9', state: 'Pending' },
+        { name: 'Prescription 10', state: 'Pending' },
       ]
     },
   ];
   patient: any = {};
-  purchaseEvent: any;
-  filteredPatients: any[] = [];
+  isLoading: boolean = false;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('paginator') matPaginator!: MatPaginator;
-  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]); // Initialize with an empty array
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['name', 'state', 'action'];
-
-  constructor() {
-    // Initialize dataSource without any data initially
-    this.dataSource = new MatTableDataSource<any>();
-  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -69,11 +61,8 @@ export class PharmacyComponent implements AfterViewInit {
     }
   }
 
-  isLoading: boolean = false;
-
   sellPrescription(prescription: any) {
-    this.isLoading = true; // Show loading component
-    // Simulate API call delay with setTimeout
+    this.isLoading = true;
     setTimeout(() => {
       if (prescription.state === 'Approved') {
         prescription.state = 'Sold';
@@ -81,30 +70,43 @@ export class PharmacyComponent implements AfterViewInit {
       } else {
         console.log('Cannot sell prescription. State is not "Approved".');
       }
-      this.isLoading = false; // Hide loading component after 3 seconds
-    }, 3000); // Wait for 3 seconds
+      this.isLoading = false;
+    }, 3000);
   }
 
   searchPatient(patientIdString: string) {
     const patientId = parseInt(patientIdString, 10);
-    console.log('input: ', patientId);
+    console.log('Searching for patient with ID:', patientId);
+    this.searchPerformed = true;
+
     if (isNaN(patientId)) {
-      this.patient = null; // Reset patient if input is not a valid number
+      this.patientFound = false;
+      this.patient = null;
+      this.dataSource.data = [];
       return;
     }
-  
-    // Reset patient to null before searching
+
+    this.patientFound = false;
     this.patient = null;
-  
-    // Loop through patients array to find the patient with the matching ID
+
     for (const patient of this.patients) {
       if (patient.id === patientId) {
         this.patientFound = true;
         this.patient = patient;
-        this.dataSource.data = patient.prescriptions; // Set data source with patient's prescriptions
-        console.log("found", patient.id);
-        break; // Exit loop once the patient is found
+        this.dataSource.data = patient.prescriptions;
+        // Reinitialize paginator and sort after updating data source
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        });
+        console.log('Patient found:', patient);
+        break;
       }
+    }
+
+    if (!this.patientFound) {
+      this.dataSource.data = [];
+      console.log('No patient found with ID:', patientId);
     }
   }
 }
