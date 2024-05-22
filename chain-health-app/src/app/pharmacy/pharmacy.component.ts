@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pharmacy',
@@ -19,8 +20,8 @@ export class PharmacyComponent implements AfterViewInit {
       name: 'John Doe', 
       balance: 500,
       prescriptions: [
-        { name: 'Prescription 1', state: 'Approved' },
-        { name: 'Prescription 2', state: 'Pending' },
+        { id: 1, name: 'Prescription 1', state: 'Approved' },
+        { id: 2, name: 'Prescription 2', state: 'Pending' },
       ]
     },
     { 
@@ -28,14 +29,9 @@ export class PharmacyComponent implements AfterViewInit {
       name: 'Jane Smith', 
       balance: 700,
       prescriptions: [
-        { name: 'Prescription 3', state: 'Approved' },
-        { name: 'Prescription 4', state: 'Pending' },
-        { name: 'Prescription 5', state: 'Pending' },
-        { name: 'Prescription 6', state: 'Pending' },
-        { name: 'Prescription 7', state: 'Pending' },
-        { name: 'Prescription 8', state: 'Pending' },
-        { name: 'Prescription 9', state: 'Pending' },
-        { name: 'Prescription 10', state: 'Pending' },
+        { id: 3, name: 'Prescription 3', state: 'Approved' },
+        { id: 4, name: 'Prescription 4', state: 'Pending' },
+        // other prescriptions...
       ]
     },
   ];
@@ -46,6 +42,8 @@ export class PharmacyComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['name', 'state', 'action'];
+
+  constructor(private router: Router) {}
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -59,6 +57,10 @@ export class PharmacyComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  viewPrescription(prescriptionId: number) {
+    this.router.navigate(['/pharmacy/prescription', prescriptionId]);
   }
 
   sellPrescription(prescription: any) {

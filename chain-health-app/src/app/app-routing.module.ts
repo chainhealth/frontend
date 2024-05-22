@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard] },
   { path: 'insurance-claims/:patientId', component: InsuranceClaimsComponent },
   { path: 'insurance-claims/:patientId/prescription/:id', component: PrescriptionsComponent },
+  { path: 'pharmacy/prescription/:id', component: PrescriptionsComponent },
 ];
 
 @NgModule({
