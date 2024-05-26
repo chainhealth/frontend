@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,7 @@ import { PrescriptionsComponent } from './prescriptions/prescriptions.component'
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    
+    HttpClientModule,
   ],
   providers: [
     provideAnimationsAsync()

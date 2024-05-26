@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent {
   password: string = ''; // Property to bind with password input
   errorMessage: string = ''; // Property to hold error message
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   login(): void {
     // Retrieve username and password from properties
@@ -20,19 +21,38 @@ export class LoginComponent {
     // Reset error message
     this.errorMessage = '';
 
-    // Check username and password
-    if (username === 'patient' && password === 'password') {
-      this.router.navigate(['/patient']);
-    } else if (username === 'doctor' && password === 'password') {
-      this.router.navigate(['/doctor']);
-    } else if (username === 'pharmacy' && password === 'password') {
-      this.router.navigate(['/pharmacy']);
-    } else if (username === 'insurance' && password === 'password') {
-      this.router.navigate(['/insurance']);
-    } else {
-      // Set error message for invalid credentials
-      this.errorMessage = 'Wrong username or password';
-      console.log('Invalid credentials');
-    }
+    // Send login request to the server
+    this.http.post<any>('http://localhost:3000/login', { username, password })
+      .subscribe(
+        response => {
+          console.log(response);
+          // Handle successful login
+          if (response) {
+            switch (response.userType) {
+              case 'MinistryofhealthMSP':
+                this.router.navigate(['/patient']);
+                break;
+              case 'Doctor':
+                this.router.navigate(['/doctor']);
+                break;
+              case 'Pharmacy':
+                this.router.navigate(['/pharmacy']);
+                break;
+              case 'Insurance':
+                this.router.navigate(['/insurance']);
+                break;
+              default:
+                this.errorMessage = 'Wrong username or password';
+                console.log('Invalid credentials');
+                break;
+            }
+          } 
+        },
+        error => {
+          // Handle error response
+          console.error('Error:', error);
+          this.errorMessage = 'An error occurred. Please try again later.';
+        }
+      );
   }
 }
