@@ -22,7 +22,7 @@ export class LoginComponent {
     this.errorMessage = '';
 
     // Send login request to the server
-    this.http.post<any>('http://localhost:3000/login', { username, password })
+    this.http.post<any>('http://localhost:3000/login', { username, password }, { withCredentials: true })
       .subscribe(
         response => {
           console.log(response);
@@ -51,7 +51,11 @@ export class LoginComponent {
         error => {
           // Handle error response
           console.error('Error:', error);
-          this.errorMessage = 'An error occurred. Please try again later.';
+          if (error.status === 400) {
+            this.errorMessage = 'Invalid credentials';
+          } else {
+            this.errorMessage = 'An error occurred. Please try again later.';
+          }
         }
       );
   }

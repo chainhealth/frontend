@@ -27,3 +27,8 @@ design:
 var approved by pharmacy
 doctor make a single object
 dropbox for doctor report meds
+
+
+
+auth gaurd
+login service remove

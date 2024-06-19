@@ -9,32 +9,44 @@
 <div class="example-container mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.firstName}} </mat-cell>
     </ng-container>
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
     </ng-container>
 
-    <!-- Balance Column -->
-    <ng-container matColumnDef="balance">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Balance </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.balance}} </mat-cell>
+    <!-- Insurance ID Column -->
+    <ng-container matColumnDef="insuranceId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Insurance ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.insuranceId}} </mat-cell>
     </ng-container>
 
-    <!-- Claimed Column -->
-    <ng-container matColumnDef="claimed">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Claimed </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.claimed}} </mat-cell>
+    <!-- Insurance State Column -->
+    <ng-container matColumnDef="insuranceState">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Insurance State </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.insuranceState}} </mat-cell>
+    </ng-container>
+
+    <!-- Remaining Balance Column -->
+    <ng-container matColumnDef="remainingBalance">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Remaining Balance </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.remainingBalance}} </mat-cell>
+    </ng-container>
+
+    <!-- Claimed Balance Column -->
+    <ng-container matColumnDef="claimedBalance">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Claimed Balance </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.claimedBalance}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewPrescriptions(row.id)"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
