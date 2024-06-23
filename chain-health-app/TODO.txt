@@ -31,4 +31,4 @@ dropbox for doctor report meds
 
 
 auth gaurd
-login service remove
+remove proxy and where its called

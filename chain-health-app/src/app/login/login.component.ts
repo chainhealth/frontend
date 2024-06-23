@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-login',
@@ -8,55 +8,46 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  username: string = ''; // Property to bind with username input
-  password: string = ''; // Property to bind with password input
-  errorMessage: string = ''; // Property to hold error message
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private apiService: ApiService, private router: Router) {}
 
   login(): void {
-    // Retrieve username and password from properties
-    const { username, password } = this;
+    this.apiService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.accessToken);
+        this.fetchHomePage(this.username);
+      },
+      error: (error) => {
+        this.errorMessage = error;
+      }
+    });
+  }
 
-    // Reset error message
-    this.errorMessage = '';
+  fetchHomePage(username: string): void {
+    this.apiService.getHomePage().subscribe({
+      next: (response) => {
+        this.redirectUser(response.userType);
+      },
+      error: (error) => {
+        this.errorMessage = error;
+      }
+    });
+  }
 
-    // Send login request to the server
-    this.http.post<any>('http://localhost:3000/login', { username, password }, { withCredentials: true })
-      .subscribe(
-        response => {
-          console.log(response);
-          // Handle successful login
-          if (response) {
-            switch (response.userType) {
-              case 'MinistryofhealthMSP':
-                this.router.navigate(['/patient']);
-                break;
-              case 'Doctor':
-                this.router.navigate(['/doctor']);
-                break;
-              case 'Pharmacy':
-                this.router.navigate(['/pharmacy']);
-                break;
-              case 'Insurance':
-                this.router.navigate(['/insurance']);
-                break;
-              default:
-                this.errorMessage = 'Wrong username or password';
-                console.log('Invalid credentials');
-                break;
-            }
-          } 
-        },
-        error => {
-          // Handle error response
-          console.error('Error:', error);
-          if (error.status === 400) {
-            this.errorMessage = 'Invalid credentials';
-          } else {
-            this.errorMessage = 'An error occurred. Please try again later.';
-          }
-        }
-      );
+  private redirectUser(role: string): void {
+    if (role === 'MinistryofhealthMSP') {
+      this.router.navigate(['/patient']);
+    } else if (role === 'Doctor') {
+      this.router.navigate(['/doctor']);
+    } else if (role === 'Pharmacy') {
+      this.router.navigate(['/pharmacy']);
+    } else if (role === 'Insurance') {
+      this.router.navigate(['/insurance']);
+    } else {
+      this.errorMessage = 'Invalid role';
+    }
   }
 }
