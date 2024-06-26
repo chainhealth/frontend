@@ -36,22 +36,38 @@ export class ApiService {
     );
   }
   
-  getPrescription(username: string, patientUsername: string, prescriptionId: string): Observable<any> {
+  // getPrescription(username: string, patientUsername: string, prescriptionId: string): Observable<any> {
+  //   const url = `${this.apiUrl}/prescription`;
+  //   return this.http.post(url, { username, patientUsername, prescriptionId }, { headers: this.getHeaders() })
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     );
+  // }
+  // getPrescription(username: string, patientUsername: string, prescriptionId: string): Observable<any> {
+  //   const url = `${this.apiUrl}/prescription`;
+  //   return this.http.post(url, { username, patientUsername, prescriptionId }, { headers: this.getHeaders() })
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     );
+  // }
+  getPrescription(patientUsername: string, prescriptionId: string): Observable<any> {
     const url = `${this.apiUrl}/prescription`;
-    return this.http.post(url, { username, patientUsername, prescriptionId }, { headers: this.getHeaders() })
+    return this.http.post(url, { patientUsername, prescriptionId }, { headers: this.getHeaders() })
       .pipe(
         catchError(this.handleError)
       );
   }
+  
+  
 
-  searchPatient(username: string, patientId: string): Observable<any> {
-    const url = `${this.apiUrl}/searchPatient`;
-    return this.http.post(url, { username, patientId }, { headers: this.getHeaders() })
+  searchPatient(patientId: string): Observable<any> {
+    const url = `${this.apiUrl}/searchPatient?patientId=${patientId}`;
+    return this.http.get(url, { headers: this.getHeaders() }) // GET with query parameters
       .pipe(
         catchError(this.handleError)
       );
-  }
-
+  }  
+  
   confirmPrescriptionPharmacy(username: string, patientId: string, prescriptionId: string): Observable<any> {
     const url = `${this.apiUrl}/confirmPrescriptionPharmacy`;
     return this.http.post(url, { username, patientId, prescriptionId }, { headers: this.getHeaders() })

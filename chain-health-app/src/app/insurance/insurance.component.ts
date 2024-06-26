@@ -54,4 +54,8 @@ export class InsuranceComponent implements OnInit {
       }
     });
   }
+
+  viewPrescriptions(patientId: number) {
+    this.router.navigate(['/insurance-claims', patientId]);
+  }
 }

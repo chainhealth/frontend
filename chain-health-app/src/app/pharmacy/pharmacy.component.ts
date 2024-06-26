@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { ApiService } from '../api.service'; // Make sure to import ApiService
 
 @Component({
   selector: 'app-pharmacy',
@@ -13,37 +14,16 @@ export class PharmacyComponent implements AfterViewInit {
   @Input() isPharmacyView: boolean = true;
   patientFound: boolean = false;
   searchPerformed: boolean = false;
-  patientId: number | null = null;
-  patients: any[] = [
-    { 
-      id: 1, 
-      name: 'John Doe', 
-      balance: 500,
-      prescriptions: [
-        { id: 1, name: 'Prescription 1', state: 'Approved' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-      ]
-    },
-    { 
-      id: 2, 
-      name: 'Jane Smith', 
-      balance: 700,
-      prescriptions: [
-        { id: 3, name: 'Prescription 3', state: 'Approved' },
-        { id: 4, name: 'Prescription 4', state: 'Pending' },
-        // other prescriptions...
-      ]
-    },
-  ];
+  patientId: string | null = null;
   patient: any = {};
   isLoading: boolean = false;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['name', 'state', 'action'];
+  displayedColumns: string[] = ['id', 'state', 'action']; // Adjusted columns
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) {}
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -59,56 +39,62 @@ export class PharmacyComponent implements AfterViewInit {
     }
   }
 
-  viewPrescription(prescriptionId: number) {
+  viewPrescription(prescriptionId: string) {
+    console.log(this.patientid)
+    localStorage.setItem('username', );
     this.router.navigate(['/pharmacy/prescription', prescriptionId]);
   }
 
   sellPrescription(prescription: any) {
-    this.isLoading = true;
-    setTimeout(() => {
-      if (prescription.state === 'Approved') {
-        prescription.state = 'Sold';
+    if (prescription.state === 'purchased') {
+      this.isLoading = true;
+      setTimeout(() => {
+        prescription.state = 'sold';
         console.log('Prescription sold:', prescription);
-      } else {
-        console.log('Cannot sell prescription. State is not "Approved".');
-      }
-      this.isLoading = false;
-    }, 3000);
+        this.isLoading = false;
+      }, 3000);
+    } else {
+      console.log('Cannot sell prescription. State is not "purchased".');
+    }
   }
 
-  searchPatient(patientIdString: string) {
-    const patientId = parseInt(patientIdString, 10);
+  searchPatient(patientId: string) {
     console.log('Searching for patient with ID:', patientId);
     this.searchPerformed = true;
 
-    if (isNaN(patientId)) {
+    if (!patientId) {
       this.patientFound = false;
       this.patient = null;
       this.dataSource.data = [];
       return;
     }
 
-    this.patientFound = false;
-    this.patient = null;
-
-    for (const patient of this.patients) {
-      if (patient.id === patientId) {
-        this.patientFound = true;
-        this.patient = patient;
-        this.dataSource.data = patient.prescriptions;
-        // Reinitialize paginator and sort after updating data source
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        });
-        console.log('Patient found:', patient);
-        break;
+    this.isLoading = true;
+    this.apiService.searchPatient(patientId).subscribe(
+      (data: any) => {
+        this.isLoading = false;
+        if (data) {
+          this.patientFound = true;
+          this.patient = data;
+          this.dataSource.data = data.prescription; // Adjusted data binding
+          // Reinitialize paginator and sort after updating data source
+          setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          });
+          console.log('Patient found:', data);
+        } else {
+          this.patientFound = false;
+          this.dataSource.data = [];
+          console.log('No patient found with ID:', patientId);
+        }
+      },
+      error => {
+        this.isLoading = false;
+        this.patientFound = false;
+        this.dataSource.data = [];
+        console.error('Error fetching patient data:', error);
       }
-    }
-
-    if (!this.patientFound) {
-      this.dataSource.data = [];
-      console.log('No patient found with ID:', patientId);
-    }
+    );
   }
 }

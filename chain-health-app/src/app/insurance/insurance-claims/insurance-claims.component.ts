@@ -16,7 +16,7 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'name', 'state'];
   patients: any[] = [
     { 
-      id: 1, 
+      id: "ins1", 
       name: 'John Doe', 
       balance: 500,
       claimed: 200,
@@ -103,15 +103,17 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const patientId = parseInt(params['patientId'], 10);
-      this.prescriptionId = parseInt(params['prescriptionId'], 10); // Parse prescriptionId from route params
-      if (!isNaN(patientId)) {
+      const patientId = params['patientId'];
+      this.prescriptionId = params['prescriptionId'];
+  
+      if (patientId) {
         this.fetchPrescriptions(patientId);
       } else {
         this.router.navigate(['/insurance-claims']);
       }
     });
   }
+  
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

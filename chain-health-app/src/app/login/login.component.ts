@@ -19,6 +19,8 @@ export class LoginComponent {
       next: (response) => {
         localStorage.setItem('token', response.accessToken);
         this.fetchHomePage(this.username);
+        localStorage.setItem('username', this.username);
+
       },
       error: (error) => {
         this.errorMessage = error;

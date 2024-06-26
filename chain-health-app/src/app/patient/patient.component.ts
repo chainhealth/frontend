@@ -1,35 +1,30 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
   styleUrls: ['./patient.component.scss']
 })
-export class PatientComponent implements AfterViewInit {
+export class PatientComponent implements OnInit, AfterViewInit {
   @Input() isPharmacyView: boolean = false;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
-  patientBalance: number = 500;
-
-  dataSource: MatTableDataSource<any>;
+  patientBalance: number = 0; // Initial balance
+  isLoading: boolean = false; // Loading state
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
   displayedColumns: string[] = ['name', 'state', 'action'];
+  patientPrescriptions: any[] = []; // Prescriptions array
 
-  patientPrescriptions: any[] = [
-    { id: 1, name: 'Prescription 1', state: 'Pending' },
-    { id: 2, name: 'Prescription 2', state: 'Rejected' },
-    { id: 3, name: 'Prescription 3', state: 'Approved' },
-    { id: 4, name: 'Prescription 4', state: 'Pending' },
-    { id: 5, name: 'Prescription 5', state: 'Rejected' },
-    { id: 6, name: 'Prescription 6', state: 'Purchased' },
-  ]; // Example prescriptions
+  constructor(private router: Router, private apiService: ApiService) {}
 
-  constructor(private router: Router) {
-    this.dataSource = new MatTableDataSource(this.patientPrescriptions);
+  ngOnInit(): void {
+    this.fetchPatientData();
   }
 
   ngAfterViewInit() {
@@ -37,7 +32,25 @@ export class PatientComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  applyFilter(event: Event) {
+  fetchPatientData(): void {
+    this.apiService.getHomePage().subscribe(
+      data => {
+        const pageData = data.pageData;
+        this.patientBalance = parseFloat(pageData.balance);
+        this.patientPrescriptions = pageData.prescription.map((presc: any) => ({
+          id: presc.prescId,
+          name: `${presc.prescId}`,
+          state: presc.prescState
+        }));
+        this.dataSource.data = this.patientPrescriptions;
+      },
+      error => {
+        console.error('Error fetching patient data:', error);
+      }
+    );
+  }
+
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -46,9 +59,7 @@ export class PatientComponent implements AfterViewInit {
     }
   }
 
-  isLoading: boolean = false;
-
-  purchasePrescription(prescription: any) {
+  purchasePrescription(prescription: any): void {
     this.isLoading = true; // Show loading component
     // Simulate API call delay with setTimeout
     setTimeout(() => {
@@ -62,7 +73,8 @@ export class PatientComponent implements AfterViewInit {
     }, 3000); // Wait for 3 seconds
   }
 
-  onRowClick(row: any) {
+  onRowClick(row: any): void {
     this.router.navigate(['/patient/prescription', row.id]);
+
   }
 }

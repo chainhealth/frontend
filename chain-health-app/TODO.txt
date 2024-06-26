@@ -32,3 +32,5 @@ dropbox for doctor report meds
 
 auth gaurd
 remove proxy and where its called
+
+for the prescriptions in insurance replacd username with current clicked row's username
