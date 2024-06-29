@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-doctor-report',
   templateUrl: './doctor-report.component.html',
-  styleUrls: ['./doctor-report.component.scss']
+  styleUrls: ['./doctor-report.component.scss'] // adjust as needed
 })
 export class DoctorReportComponent {
   report: string = ''; // For the report input
@@ -17,10 +17,10 @@ export class DoctorReportComponent {
 
   addPrescription() {
     if (this.medicationName.trim() && this.dosage.trim() && this.frequency.trim()) {
-      const prescription = { 
-        name: this.medicationName.trim(), 
-        dosage: this.dosage.trim(), 
-        frequency: this.frequency.trim() 
+      const prescription = {
+        name: this.medicationName.trim(),
+        dosage: this.dosage.trim(),
+        frequency: this.frequency.trim()
       };
       this.prescriptions.push(prescription);
       this.medicationName = ''; // Clear the medication name input field after adding prescription

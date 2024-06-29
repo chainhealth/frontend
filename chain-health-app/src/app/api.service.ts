@@ -100,14 +100,25 @@ export class ApiService {
       );
   }
 
-  writePrescription(username: string, patientId: string, prescription: any): Observable<any> {
+  // writePrescription(patientId: string, prescription: any): Observable<any> {
+  //   const url = `${this.apiUrl}/writePrescription`;
+  //   const body = { patientId, prescription };
+  //   return this.http.post(url, body, { headers: this.getHeaders() })
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     );
+  // }
+  
+  writePrescription(patientId: string, prescriptionData: any): Observable<any> {
     const url = `${this.apiUrl}/writePrescription`;
-    return this.http.post(url, { username, patientId, prescription }, { headers: this.getHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+    console.log(patientId, prescriptionData);
+    return this.http.post(url, { patientId, prescription: prescriptionData }, { headers: this.getHeaders() }).pipe(
+      catchError(error => {
+        console.error('Error submitting prescription:', error);
+        return throwError('Error submitting prescription.');
+      })
+    );
   }
-
   private handleError(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
