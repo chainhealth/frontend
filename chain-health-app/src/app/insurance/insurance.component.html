@@ -14,11 +14,17 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.firstName}} </mat-cell>
     </ng-container>
-
+    
     <!-- Last Name Column -->
     <ng-container matColumnDef="lastName">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+    </ng-container>
+    
+    <!-- Patient ID Column -->
+    <ng-container matColumnDef="patientId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Patient ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.patientId}} </mat-cell>
     </ng-container>
 
     <!-- Insurance ID Column -->
@@ -45,8 +51,9 @@
       <mat-cell *matCellDef="let row"> {{row.claimedBalance}} </mat-cell>
     </ng-container>
 
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewPrescriptions(row.insuranceId)"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewPrescriptions(row.patientId)"></mat-row>
   </mat-table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

@@ -35,6 +35,7 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
   fetchPrescriptionData(): void {
     const patientUsername = localStorage.getItem('username');
     if (patientUsername && this.prescriptionId) {
+      console.log(patientUsername, this.prescriptionId);
       this.apiService.getPrescription(patientUsername, this.prescriptionId).subscribe(
         data => {
           this.dataSource.data = data.medicines;

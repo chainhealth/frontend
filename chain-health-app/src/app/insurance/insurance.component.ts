@@ -14,7 +14,7 @@ export class InsuranceComponent implements OnInit {
   userData: any[] = []; // Initialize empty array
 
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['firstName', 'lastName', 'insuranceId', 'insuranceState', 'remainingBalance', 'claimedBalance'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'patientId', 'insuranceId', 'insuranceState', 'remainingBalance', 'claimedBalance'];
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -55,7 +55,7 @@ export class InsuranceComponent implements OnInit {
     });
   }
 
-  viewPrescriptions(patientId: number) {
+  viewPrescriptions(patientId: string) {
     this.router.navigate(['/insurance-claims', patientId]);
   }
 }

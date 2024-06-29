@@ -14,10 +14,10 @@ export class PharmacyComponent implements AfterViewInit {
   @Input() isPharmacyView: boolean = true;
   patientFound: boolean = false;
   searchPerformed: boolean = false;
-  patientId: string | null = null;
+  patientId: string = "";//| null = null;
   patient: any = {};
   isLoading: boolean = false;
-
+  patientName: string = "";
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
@@ -40,8 +40,8 @@ export class PharmacyComponent implements AfterViewInit {
   }
 
   viewPrescription(prescriptionId: string) {
-    console.log(this.patientid)
-    localStorage.setItem('username', );
+    // console.log(this.patientId);
+    // localStorage.setItem('username', this.patientId);
     this.router.navigate(['/pharmacy/prescription', prescriptionId]);
   }
 
@@ -60,6 +60,7 @@ export class PharmacyComponent implements AfterViewInit {
 
   searchPatient(patientId: string) {
     console.log('Searching for patient with ID:', patientId);
+    localStorage.setItem('username', patientId);
     this.searchPerformed = true;
 
     if (!patientId) {
@@ -68,7 +69,7 @@ export class PharmacyComponent implements AfterViewInit {
       this.dataSource.data = [];
       return;
     }
-
+    
     this.isLoading = true;
     this.apiService.searchPatient(patientId).subscribe(
       (data: any) => {
@@ -76,7 +77,12 @@ export class PharmacyComponent implements AfterViewInit {
         if (data) {
           this.patientFound = true;
           this.patient = data;
-          this.dataSource.data = data.prescription; // Adjusted data binding
+          this.dataSource.data = data.prescription;
+          ////////////////////////////////////////////////////////////////////////////
+         //////// IM USING THE ID NOT THE NAME //////////////////////////////////////
+          this.patientName = data.firstName + " " + data.lastName;
+          
+          
           // Reinitialize paginator and sort after updating data source
           setTimeout(() => {
             this.dataSource.sort = this.sort;

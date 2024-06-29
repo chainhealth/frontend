@@ -58,8 +58,24 @@ export class ApiService {
       );
   }
   
+  getPrescriptions(patientId: string): Observable<any> {
+    const url = `${this.apiUrl}/insuranceClaims`;
+    const params = new HttpParams().set('patientId', patientId);
+    return this.http.get(url, {
+      headers: this.getHeaders(),
+      params: params
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getInsuranceClaims(patientId: string): Observable<any> {
+    const url = `${this.apiUrl}/insuranceClaims?patientId=${patientId}`;
+    return this.http.get(url, { headers: this.getHeaders() })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   
-
   searchPatient(patientId: string): Observable<any> {
     const url = `${this.apiUrl}/searchPatient?patientId=${patientId}`;
     return this.http.get(url, { headers: this.getHeaders() }) // GET with query parameters

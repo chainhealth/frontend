@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-insurance-claims',
@@ -11,121 +12,43 @@ import { MatSort } from '@angular/material/sort';
 })
 export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
   selectedPatient: any = {};
-  prescriptionId: number | undefined; // Define prescriptionId as a number
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['id', 'name', 'state'];
-  patients: any[] = [
-    { 
-      id: "ins1", 
-      name: 'John Doe', 
-      balance: 500,
-      claimed: 200,
-      prescriptions: [
-        { id: 1, name: 'Prescription 1', state: 'Approved' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-        { id: 2, name: 'Prescription 2', state: 'Pending' },
-      ]
-    },
-    { 
-      id: 2, 
-      name: 'Jane Smith', 
-      balance: 700,
-      claimed: 300,
-      prescriptions: [
-        { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' }
-      ]
-    },
-    { 
-      id: 27, 
-      name: 'Jane Smith', 
-      balance: 700,
-      claimed: 300,
-      prescriptions: [
-        { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' }
-      ]
-    },    { 
-      id: 6, 
-      name: 'Jane Smith', 
-      balance: 700,
-      claimed: 300,
-      prescriptions: [
-        { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' }
-      ]
-    },    { 
-      id: 2, 
-      name: 'Jane Smith', 
-      balance: 700,
-      claimed: 300,
-      prescriptions: [
-        { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' }
-      ]
-    },    { 
-      id: 3, 
-      name: 'Jane Smith', 
-      balance: 700,
-      claimed: 300,
-      prescriptions: [
-        { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' }
-      ]
-    },    { 
-      id: 4, 
-      name: 'Jane Smith', 
-      balance: 700,
-      claimed: 300,
-      prescriptions: [
-        { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' }
-      ]
-    },    { 
-      id: 5, 
-      name: 'Jane Smith', 
-      balance: 700,
-      claimed: 300,
-      prescriptions: [
-        { id: 1, name: 'Prescription 3', state: 'Approved' },
-        { id: 2, name: 'Prescription 4', state: 'Pending' }
-      ]
-    },
-  ];
+  displayedColumns: string[] = ['prescriptionId', 'state'];
+  patient = "";
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const patientId = params['patientId'];
-      this.prescriptionId = params['prescriptionId'];
-  
+      this.patient = patientId;
+      this.patient = params['patientId'];
       if (patientId) {
         this.fetchPrescriptions(patientId);
+        // localStorage.setItem('username', patientId);/////////////////
       } else {
         this.router.navigate(['/insurance-claims']);
       }
     });
   }
-  
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  fetchPrescriptions(patientId: number): void {
-    const patient = this.patients.find(p => p.id === patientId);
-    if (patient) {
-      this.selectedPatient = patient;
-      this.dataSource.data = patient.prescriptions;
-    }
+  fetchPrescriptions(patientId: string): void {
+    this.apiService.getInsuranceClaims(patientId).subscribe({
+      next: (response) => {
+        this.selectedPatient = response;
+        this.dataSource.data = response.prescription;
+      },
+      error: (error) => {
+        console.error('Error fetching prescriptions:', error);
+      }
+    });
   }
 
   applyFilter(event: Event): void {
@@ -136,8 +59,16 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  redirectToPrescription(patientId: number, prescriptionId: number): void {
-    this.router.navigate(['/insurance-claims', patientId, 'prescription', prescriptionId]);
+  redirectToPrescription(patientId: string, prescriptionId: string): void {
+    console.log(this.patient);
+    localStorage.setItem('username', this.patient);
+    this.router.navigate([`insurance-claims/${this.patient}/prescription/${prescriptionId}`])
+      .catch(error => {
+        console.error('Navigation error:', error);
+      });
   }
+  
+  // redirectToPrescription(username: string, prescriptionId: string): void {
+  //   this.router.navigate(['insurance-claims/:patientId/prescription/:id', this.patient]);
+  // }
 }
