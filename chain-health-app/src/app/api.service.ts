@@ -35,22 +35,7 @@ export class ApiService {
       catchError(this.handleError)
     );
   }
-  
-  // getPrescription(username: string, patientUsername: string, prescriptionId: string): Observable<any> {
-  //   const url = `${this.apiUrl}/prescription`;
-  //   return this.http.post(url, { username, patientUsername, prescriptionId }, { headers: this.getHeaders() })
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     );
-  // }
-  // getPrescription(username: string, patientUsername: string, prescriptionId: string): Observable<any> {
-  //   const url = `${this.apiUrl}/prescription`;
-  //   return this.http.post(url, { username, patientUsername, prescriptionId }, { headers: this.getHeaders() })
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     );
-  // }
-  getPrescription(patientUsername: string, prescriptionId: string): Observable<any> {
+    getPrescription(patientUsername: string, prescriptionId: string): Observable<any> {
     const url = `${this.apiUrl}/prescription`;
     return this.http.post(url, { patientUsername, prescriptionId }, { headers: this.getHeaders() })
       .pipe(
@@ -68,6 +53,7 @@ export class ApiService {
       catchError(this.handleError)
     );
   }
+  
   getInsuranceClaims(patientId: string): Observable<any> {
     const url = `${this.apiUrl}/insuranceClaims?patientId=${patientId}`;
     return this.http.get(url, { headers: this.getHeaders() })
@@ -84,17 +70,22 @@ export class ApiService {
       );
   }  
   
-  confirmPrescriptionPharmacy(username: string, patientId: string, prescriptionId: string): Observable<any> {
-    const url = `${this.apiUrl}/confirmPrescriptionPharmacy`;
-    return this.http.post(url, { username, patientId, prescriptionId }, { headers: this.getHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  // confirmPrescriptionPharmacy(username: string, patientId: string, prescriptionId: string): Observable<any> {
+  //   const url = `${this.apiUrl}/confirmPrescriptionPharmacy`;
+  //   return this.http.post(url, { username, patientId, prescriptionId }, { headers: this.getHeaders() })
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     );
+  // }
 
-  confirmPrescriptionPatient(username: string, prescriptionId: string): Observable<any> {
+  confirmPrescriptionPharmacy(patientId: string, prescriptionId: string): Observable<any> {
+    const url = `${this.apiUrl}/confirmPrescriptionPharmacy`;
+    return this.http.post(url, { patientId, prescriptionId }, { headers: this.getHeaders() });
+  }
+  
+  confirmPrescriptionPatient(prescriptionId: string): Observable<any> {
     const url = `${this.apiUrl}/confirmPrescriptionPatient`;
-    return this.http.post(url, { username, prescriptionId }, { headers: this.getHeaders() })
+    return this.http.post(url, { prescriptionId }, { headers: this.getHeaders() })
       .pipe(
         catchError(this.handleError)
       );

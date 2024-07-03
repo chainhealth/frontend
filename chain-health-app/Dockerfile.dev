@@ -1,10 +1,29 @@
-FROM node:18.13.0
+# Use Node.js LTS (latest as specified)
+FROM node:18.19
+
+# Set working directory
 WORKDIR /app
+
+# Install Angular CLI globally
 RUN npm install -g @angular/cli
-RUN ng add @angular/material
+
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
-RUN npm install
-RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
+
+# Install dependencies
+RUN npm install --force
+
+# Add Angular Material to the project
+RUN ng add @angular/material
+
+# Copy the rest of the application code to the working directory
 COPY . .
+
+# Run ngcc to compile Angular libraries (if needed)
+RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
+
+# Expose port 4200 (default Angular port)
 EXPOSE 4200
+
+# Serve the Angular application
 CMD ["ng", "serve", "--host", "0.0.0.0"]

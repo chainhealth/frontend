@@ -59,18 +59,42 @@ export class PatientComponent implements OnInit, AfterViewInit {
     }
   }
 
-  purchasePrescription(prescription: any): void {
-    this.isLoading = true; // Show loading component
-    // Simulate API call delay with setTimeout
-    setTimeout(() => {
-      if (prescription.state === 'Approved') {
-        prescription.state = 'Purchased';
-        console.log('Prescription purchased:', prescription);
-      } else {
-        console.log('Cannot purchase prescription. State is not "Approved".');
+  // purchasePrescription(event: Event, prescription: any): void {
+  //   this.isLoading = true; // Show loading component
+  //   event.stopPropagation();
+  //   // Simulate API call delay with setTimeout
+  //   setTimeout(() => {
+  //     if (prescription.state === 'confirmed') {
+  //       prescription.state = '';
+  //       console.log('Prescription purchased:', prescription);
+  //     } else {
+  //       console.log('Cannot purchase prescription. State is not "Approved".');
+  //     }
+  //     this.isLoading = false; // Hide loading component after 3 seconds
+  //   }, 3000); // Wait for 3 seconds
+  // }
+
+
+  purchasePrescription(event: Event, prescription: any): void {
+    event.stopPropagation();
+    this.isLoading = true;
+    console.log(prescription.id);
+    this.apiService.confirmPrescriptionPatient(prescription.id).subscribe(
+      response => {
+        console.log(response);
+        this.isLoading = false;
+        if (response.state === 'purchased') {
+          prescription.state = 'purchased';
+          console.log('Prescription purchased:', prescription);
+        } else {
+          console.log('Cannot purchase prescription:', response);
+        }
+      },
+      error => {
+        this.isLoading = false;
+        console.error('Error purchasing prescription:', error);
       }
-      this.isLoading = false; // Hide loading component after 3 seconds
-    }, 3000); // Wait for 3 seconds
+    );
   }
 
   onRowClick(row: any): void {

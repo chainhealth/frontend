@@ -10,43 +10,50 @@
     <h4>Balance: {{ patient.balance }}</h4>
     <div class="example-header">
       <mat-form-field>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filter" />
       </mat-form-field>
     </div>
 
     <div class="example-container mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
-
         <!-- Name Column -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-          <td mat-cell *matCellDef="let row"> {{row.prescriptionId}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let row">{{ row.prescriptionId }}</td>
         </ng-container>
 
         <!-- State Column -->
         <ng-container matColumnDef="state">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
-          <td mat-cell *matCellDef="let row"> {{row.state}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+          <td mat-cell *matCellDef="let row">{{ row.state }}</td>
         </ng-container>
 
- <!-- Action Column -->
- <ng-container matColumnDef="action">
-  <th mat-header-cell *matHeaderCellDef> Action </th>
-  <td mat-cell *matCellDef="let row">
-    <button 
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
-      (click)="sellPrescription(row)" 
-      [disabled]="row.state !== 'Approved'"
-    >
-      Sell
-    </button>
-  </td>
-</ng-container>
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let row">
+            <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+            (click)="sellPrescription($event, row)"
+              [disabled]="row.state === 'purchased'"
+            >
+              Sell
+            </button>
+          </td>
+        </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewPrescription(row.prescriptionId)"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="viewPrescription(row.prescriptionId)"
+        ></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [pageSize]="10"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
 

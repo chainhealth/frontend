@@ -15,6 +15,7 @@ export class PharmacyComponent implements AfterViewInit {
   patientFound: boolean = false;
   searchPerformed: boolean = false;
   patientId: string = "";//| null = null;
+  // patientId2: string | null = null;
   patient: any = {};
   isLoading: boolean = false;
   patientName: string = "";
@@ -40,27 +41,36 @@ export class PharmacyComponent implements AfterViewInit {
   }
 
   viewPrescription(prescriptionId: string) {
-    // console.log(this.patientId);
-    // localStorage.setItem('username', this.patientId);
     this.router.navigate(['/pharmacy/prescription', prescriptionId]);
   }
 
-  sellPrescription(prescription: any) {
-    if (prescription.state === 'purchased') {
-      this.isLoading = true;
-      setTimeout(() => {
-        prescription.state = 'sold';
-        console.log('Prescription sold:', prescription);
+  sellPrescription(event: Event, prescription: any) {
+    event.stopPropagation();
+    this.isLoading = true;
+    // console.log(this.patient, prescription.prescriptionId );
+    // const patientId2  = localStorage.getItem("username");
+    this.apiService.confirmPrescriptionPharmacy(this.patientId, prescription.prescriptionId).subscribe(
+      response => {
+        console.log(response);
         this.isLoading = false;
-      }, 3000);
-    } else {
-      console.log('Cannot sell prescription. State is not "purchased".');
-    }
+        if (response.state === 'confirmed') {
+          prescription.state = 'confirmed';
+          console.log('Prescription confirmed:', prescription);
+        } else {
+          console.log('Prescription could not be confirmed:', response);
+        }
+      },
+      error => {
+        this.isLoading = false;
+        console.error('Error confirming prescription:', error);
+      }
+    );
   }
 
   searchPatient(patientId: string) {
     console.log('Searching for patient with ID:', patientId);
     localStorage.setItem('username', patientId);
+    this.patientId = patientId;
     this.searchPerformed = true;
 
     if (!patientId) {
@@ -78,10 +88,7 @@ export class PharmacyComponent implements AfterViewInit {
           this.patientFound = true;
           this.patient = data;
           this.dataSource.data = data.prescription;
-          ////////////////////////////////////////////////////////////////////////////
-         //////// IM USING THE ID NOT THE NAME //////////////////////////////////////
           this.patientName = data.firstName + " " + data.lastName;
-          
           
           // Reinitialize paginator and sort after updating data source
           setTimeout(() => {
