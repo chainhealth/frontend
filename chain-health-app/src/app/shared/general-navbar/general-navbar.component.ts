@@ -1,5 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-general-navbar',
@@ -7,40 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./general-navbar.component.scss']
 })
 export class GeneralNavbarComponent {
-  isLoggedIn: boolean = false; // Initially, the user is not logged in
+  isLoggedIn: boolean = false;
   isTransparent: boolean = true;
   isMobile: boolean = false;
 
-  constructor(private router: Router) {
-    // You can add logic here to check if the user is logged in
-    // and set the value of isLoggedIn accordingly
-    // For demonstration purposes, I'll assume the user is logged in
-    
-    this.isLoggedIn = true;
-    // this.onWindowChange(); // Initialize properties on component initialization
+  constructor(private router: Router, private authService: AuthService) {
+    // Subscribe to the login status observable
+    this.authService.isLoggedIn.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+    });
   }
 
-  // @HostListener('window:scroll', [])
-  // @HostListener('window:resize', [])
-  // onWindowChange() {
-  //   // Using debounce to avoid too many updates while resizing
-  //   this.debounce(() => {
-  //     const yOffset = window.pageYOffset;
-  //     const screenWidth = window.innerWidth;
-
-  //     // Update transparency based on scroll position
-  //     this.isTransparent = yOffset < 600;
-
-  //     // Update mobile status based on screen width
-  //     this.isMobile = screenWidth <= 768;
-  //   }, 50)();
-  // }
-
   logout(): void {
-    // Add logic here to handle logout
-    // For example, you can clear user authentication tokens or session
-    // and redirect the user to the login page
-    this.isLoggedIn = false;
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   // Debounce function to limit frequency of updates during resizing
@@ -57,6 +38,7 @@ export class GeneralNavbarComponent {
       timeout = setTimeout(later, wait);
     };
   }
+
   isMenuOpen: boolean = false;
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
