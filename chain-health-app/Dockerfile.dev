@@ -11,19 +11,17 @@ RUN npm install -g @angular/cli
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --force
+RUN npm install
 
+COPY . .
 # Add Angular Material to the project
 RUN ng add @angular/material
 
-# Copy the rest of the application code to the working directory
-COPY . .
-
 # Run ngcc to compile Angular libraries (if needed)
-RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
+# RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
 
 # Expose port 4200 (default Angular port)
 EXPOSE 4200
 
 # Serve the Angular application
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--disable-host-check", "--host", "0.0.0.0"]

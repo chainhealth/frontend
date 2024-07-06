@@ -1,10 +1,20 @@
-FROM node:18.13.0 AS build
+FROM node:18.19 AS build
 WORKDIR /app
+
+RUN npm install -g @angular/cli
+
 COPY package*.json ./
+
+
 RUN npm install
-# RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
+
 COPY . .
-RUN npm run build
+
+RUN ng add @angular/material
+
+
+
+RUN npm run build --prod
 
 FROM nginx:stable
 COPY --from=build /app/dist/chain-health-app/browser /usr/share/nginx/html
