@@ -15,14 +15,14 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
-  { path: 'patient/prescription/:id', component: PrescriptionsComponent },
-  { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
-  { path: 'pharmacy', component: PharmacyComponent, canActivate: [AuthGuard] },
-  { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard] },
-  { path: 'insurance-claims/:patientId', component: InsuranceClaimsComponent },
-  { path: 'insurance-claims/:patientId/prescription/:id', component: PrescriptionsComponent },
-  { path: 'pharmacy/prescription/:id', component: PrescriptionsComponent },
+  { path: 'patient', component: PatientComponent, canActivate: [AuthGuard], data: { role: 'MinistryofhealthMSP' } },
+  { path: 'patient/prescription/:id', component: PrescriptionsComponent, canActivate: [AuthGuard], data: { role: 'MinistryofhealthMSP' }},
+  { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard], data: { role: 'Doctor' } },
+  { path: 'pharmacy', component: PharmacyComponent, canActivate: [AuthGuard], data: { role: 'Pharmacy' } },
+  { path: 'pharmacy/prescription/:id', component: PrescriptionsComponent , canActivate: [AuthGuard], data: { role: 'Pharmacy' }},
+  { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard], data: { role: 'Insurance' } },
+  { path: 'insurance-claims/:patientId', component: InsuranceClaimsComponent , canActivate: [AuthGuard], data: { role: 'Insurance' }},
+  { path: 'insurance-claims/:patientId/prescription/:id', component: PrescriptionsComponent , canActivate: [AuthGuard], data: { role: 'Insurance' }},
 ];
 
 @NgModule({

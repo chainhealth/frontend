@@ -18,8 +18,9 @@ export class LoginComponent {
   login(): void {
     this.apiService.login(this.username, this.password).subscribe({
       next: (response) => {
-        this.authService.login(response.accessToken, this.username);
-        this.fetchHomePage(this.username);
+        const token = response.accessToken;
+        this.authService.login(token, this.username);
+        this.fetchUserRole();
       },
       error: (error) => {
         this.errorMessage = error;
@@ -27,18 +28,23 @@ export class LoginComponent {
     });
   }
 
-  fetchHomePage(username: string): void {
+  fetchUserRole(): void {
     this.apiService.getHomePage().subscribe({
       next: (response) => {
-        this.redirectUser(response.userType);
+        const role = response.userType;
+        console.log('Role received:', role);
+        this.authService.setUserRole(role);
+        this.redirectUser(role);
       },
       error: (error) => {
         this.errorMessage = error;
       }
     });
   }
-
   private redirectUser(role: string): void {
+    
+    localStorage.setItem("role", role);
+
     if (role === 'MinistryofhealthMSP') {
       this.router.navigate(['/patient']);
     } else if (role === 'Doctor') {

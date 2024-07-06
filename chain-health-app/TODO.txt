@@ -38,3 +38,18 @@ for the prescriptions in insurance replacd username with current clicked row's u
 
 make dosage and frequency accept string not only numbers
 doctor submitted successfully message and remove report after submitted
+
+
+
+loading 
+messages:
+logged in successfully
+logged out 
+
+doctor:
+
+patient:
+
+pharmacy:
+
+insurance:
