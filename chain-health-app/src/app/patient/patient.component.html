@@ -1,4 +1,7 @@
-<app-loading [isVisible]="isLoading"></app-loading>
+<!-- mat-spinner for loading state -->
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
 <div class="patient-container">
   <h2>Welcome, Patient!</h2>
   <h4>Balance: {{ patientBalance }}</h4>

@@ -27,6 +27,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -61,6 +62,7 @@ import { AuthInterceptor } from './auth.interceptor';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
   ],
   providers: [

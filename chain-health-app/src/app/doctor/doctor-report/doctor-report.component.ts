@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-doctor-report',
   templateUrl: './doctor-report.component.html',
-  styleUrls: ['./doctor-report.component.scss'] // adjust as needed
+  styleUrls: ['./doctor-report.component.scss']
 })
 export class DoctorReportComponent {
   report: string = ''; // For the report input
@@ -32,5 +32,8 @@ export class DoctorReportComponent {
 
   submitReport() {
     this.reportSubmitted.emit({ report: this.report, prescriptions: this.prescriptions });
+    // Clear the report and prescriptions after submitting
+    this.report = '';
+    this.prescriptions = [];
   }
 }

@@ -11,12 +11,12 @@ import { ApiService } from '../api.service';
   styleUrls: ['./patient.component.scss']
 })
 export class PatientComponent implements OnInit, AfterViewInit {
+  isLoading: boolean = false; // Loading state
   @Input() isPharmacyView: boolean = false;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
   patientBalance: number = 0; // Initial balance
-  isLoading: boolean = false; // Loading state
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   displayedColumns: string[] = ['name', 'state', 'action'];
   patientPrescriptions: any[] = []; // Prescriptions array
@@ -33,6 +33,7 @@ export class PatientComponent implements OnInit, AfterViewInit {
   }
 
   fetchPatientData(): void {
+    this.isLoading = true;
     this.apiService.getHomePage().subscribe(
       data => {
         const pageData = data.pageData;
@@ -43,9 +44,13 @@ export class PatientComponent implements OnInit, AfterViewInit {
           state: presc.prescState
         }));
         this.dataSource.data = this.patientPrescriptions;
+        this.isLoading = false;
+
       },
       error => {
         console.error('Error fetching patient data:', error);
+        this.isLoading = false;
+
       }
     );
   }

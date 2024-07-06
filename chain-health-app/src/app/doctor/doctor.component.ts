@@ -12,10 +12,12 @@ export class DoctorComponent {
   patientId: string | null = null; // Patient ID as string or null
   patient: any = {}; // Placeholder for patient details
   oldPrescriptions: string[] = []; // Placeholder for old prescriptions
+  isLoading: boolean = false; // Flag to indicate loading state
 
   constructor(private apiService: ApiService) {}
 
   searchPatient(id: string) {
+    this.isLoading = true; // Set loading state to true
     console.log('Searching with ID:', id);
 
     this.apiService.searchPatient(id).subscribe({
@@ -36,12 +38,14 @@ export class DoctorComponent {
         this.searchPerformed = true;
         this.oldPrescriptions = response.oldPrescription;
         this.patientId = id; // Assign patientId here
+        this.isLoading = false; // Set loading state to false after response
       },
       error: (error) => {
         console.error('Error fetching patient data:', error);
         this.patientFound = false;
         this.searchPerformed = true;
         this.oldPrescriptions = [];
+        this.isLoading = false; // Set loading state to false on error
       }
     });
   }
@@ -68,10 +72,14 @@ export class DoctorComponent {
         }))
       };
 
+      this.isLoading = true; // Set loading state to true
       // Call API service to submit prescription
       this.apiService.writePrescription(this.patientId, prescriptionData).subscribe(
         (response) => {
           console.log('Prescription submitted successfully:', response);
+          if (this.patientId !== null) {
+            this.searchPatient(this.patientId); // Call searchPatient with the current patientId
+          }
           // Handle success (e.g., show confirmation)
         },
         (error) => {

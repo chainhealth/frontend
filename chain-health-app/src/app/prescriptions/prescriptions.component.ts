@@ -11,6 +11,7 @@ import { ApiService } from '../api.service';
   styleUrls: ['./prescriptions.component.scss']
 })
 export class PrescriptionsComponent implements OnInit, AfterViewInit {
+  isLoading: boolean = false;
   prescriptionId!: string;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   displayedColumns: string[] = ['name', 'dosage', 'frequency'];
@@ -33,15 +34,18 @@ export class PrescriptionsComponent implements OnInit, AfterViewInit {
   }
 
   fetchPrescriptionData(): void {
+    this.isLoading = true;
     const patientUsername = localStorage.getItem('username');
     if (patientUsername && this.prescriptionId) {
       this.apiService.getPrescription(patientUsername, this.prescriptionId).subscribe(
         data => {
           console.log(data);
           this.dataSource.data = data.medicines;
+          this.isLoading = false;
         },
         error => {
           console.error('Error fetching prescription data:', error);
+          this.isLoading = false;
         }
       );
     } else {

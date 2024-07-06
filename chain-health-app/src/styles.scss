@@ -10,3 +10,16 @@
     max-width: 1200px; /* Adjust the maximum width as needed */
     margin: 0 auto; /* This centers the container horizontally */
   }
+
+.spinner-container {
+  position: fixed; /* Position relative to the viewport */
+  top: 0; /* Align to the top of the viewport */
+  left: 0; /* Align to the left of the viewport */
+  width: 100%; /* Take full width of the viewport */
+  height: 100%; /* Take full height of the viewport */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 9999; /* Ensure it's on top of other content */
+}

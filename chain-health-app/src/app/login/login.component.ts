@@ -12,10 +12,18 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  
+  // here if login is successful no need to return the flag to false because 
+  // that happens as soon the redirection happens, this is due to the fact that each page
+  // start with isLoading=false 
+  isLoading: boolean = false; // Flag to indicate loading state
+
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {}
 
   login(): void {
+    this.isLoading = true;
+
     this.apiService.login(this.username, this.password).subscribe({
       next: (response) => {
         const token = response.accessToken;
@@ -24,6 +32,7 @@ export class LoginComponent {
       },
       error: (error) => {
         this.errorMessage = error;
+        this.isLoading = false;
       }
     });
   }
@@ -38,6 +47,7 @@ export class LoginComponent {
       },
       error: (error) => {
         this.errorMessage = error;
+        this.isLoading = false;
       }
     });
   }

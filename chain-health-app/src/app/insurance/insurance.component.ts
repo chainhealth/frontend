@@ -11,6 +11,9 @@ import { ApiService } from '../api.service';
   styleUrls: ['./insurance.component.scss']
 })
 export class InsuranceComponent implements OnInit {
+
+  isLoading: boolean = false; // Flag to indicate loading state
+  
   userData: any[] = []; // Initialize empty array
 
   dataSource: MatTableDataSource<any>;
@@ -40,6 +43,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   fetchInsuranceData() {
+    this.isLoading = true;
     this.apiService.getHomePage().subscribe({
       next: (response) => {
         if (response.userType === 'Insurance' && response.userData) {
@@ -48,9 +52,13 @@ export class InsuranceComponent implements OnInit {
         } else {
           console.error('Invalid response format for insurance data');
         }
+        this.isLoading = false;
+
       },
       error: (error) => {
         console.error('Error fetching insurance data:', error);
+        this.isLoading = false;
+
       }
     });
   }

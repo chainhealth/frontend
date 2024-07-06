@@ -11,6 +11,7 @@ import { ApiService } from '../../api.service';
   styleUrls: ['./insurance-claims.component.scss']
 })
 export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
+  isLoading: boolean = false; // Flag to indicate loading state
   selectedPatient: any = {};
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   displayedColumns: string[] = ['prescriptionId', 'state'];
@@ -40,13 +41,16 @@ export class InsuranceClaimsComponent implements OnInit, AfterViewInit {
   }
 
   fetchPrescriptions(patientId: string): void {
+    this.isLoading = true;
     this.apiService.getInsuranceClaims(patientId).subscribe({
       next: (response) => {
         this.selectedPatient = response;
         this.dataSource.data = response.prescription;
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error fetching prescriptions:', error);
+        this.isLoading = false;
       }
     });
   }

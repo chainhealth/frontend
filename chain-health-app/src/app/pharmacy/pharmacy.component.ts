@@ -11,13 +11,14 @@ import { ApiService } from '../api.service'; // Make sure to import ApiService
   styleUrls: ['./pharmacy.component.scss']
 })
 export class PharmacyComponent implements AfterViewInit {
+  isLoading: boolean = false;
+  
   @Input() isPharmacyView: boolean = true;
   patientFound: boolean = false;
   searchPerformed: boolean = false;
   patientId: string = "";//| null = null;
   // patientId2: string | null = null;
   patient: any = {};
-  isLoading: boolean = false;
   patientName: string = "";
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
