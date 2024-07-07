@@ -41,7 +41,10 @@ doctor submitted successfully message and remove report after submitted
 
 
 
-loading 
+loading done
+
+refactor
+
 messages:
 logged in successfully
 logged out 
@@ -53,3 +56,6 @@ patient:
 pharmacy:
 
 insurance:
+
+
+no patient found doesnt work

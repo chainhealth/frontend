@@ -31,7 +31,7 @@ export class LoginComponent {
         this.fetchUserRole();
       },
       error: (error) => {
-        this.errorMessage = error;
+        this.errorMessage = "Invalid username or password";
         this.isLoading = false;
       }
     });

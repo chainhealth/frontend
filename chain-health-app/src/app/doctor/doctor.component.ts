@@ -13,6 +13,10 @@ export class DoctorComponent {
   patient: any = {}; // Placeholder for patient details
   oldPrescriptions: string[] = []; // Placeholder for old prescriptions
   isLoading: boolean = false; // Flag to indicate loading state
+  isError: boolean = false; // Flag to indicate error state
+  errorMessage: string = ''; // Error message to display
+  isSuccess: boolean = false; // Flag to indicate success state
+  successMessage: string = ''; // Success message to display
 
   constructor(private apiService: ApiService) {}
 
@@ -77,14 +81,19 @@ export class DoctorComponent {
       this.apiService.writePrescription(this.patientId, prescriptionData).subscribe(
         (response) => {
           console.log('Prescription submitted successfully:', response);
+          this.isError = false; // Reset error state on success
+          this.isSuccess = true; // Set success state to true
+          this.successMessage = 'Report submitted successfully!';
+          this.isLoading = false; // Set loading state to false
           if (this.patientId !== null) {
             this.searchPatient(this.patientId); // Call searchPatient with the current patientId
           }
-          // Handle success (e.g., show confirmation)
         },
         (error) => {
           console.error('Error submitting prescription:', error);
-          // Handle error (e.g., show error message)
+          this.isError = true; // Set error state to true
+          this.errorMessage = 'An error occurred. Please try again.';
+          this.isLoading = false; // Set loading state to false
         }
       );
     } else {

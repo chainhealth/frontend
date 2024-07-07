@@ -1,45 +1,58 @@
-<app-hero></app-hero>
-<div class="container mt-5">
-  <!-- Increase top margin -->
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <h1>Welcome to Our Health Management System</h1>
-      <p>
-        Our Health Management System is designed to streamline the management of
-        patient records, prescriptions, and medical histories. With our system,
-        doctors and patients can easily access and update their information,
-        improving communication and efficiency in healthcare delivery.
+<div class="hero-section relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/hero.png');">
+  <!-- Semi-transparent overlay -->
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div class="text-center text-light md:w-8/12 px-4 relative z-10">
+    <div class="mb-4">
+      <h1 class="text-4xl md:text-6xl font-bold">Welcome to Our Health Management System</h1>
+    </div>
+    <div class="mb-8">
+      <p class="text-lg md:text-xl">Our Health Management System is designed to streamline the management of patient records, prescriptions, and medical histories. With our system, doctors and patients can easily access and update their information, improving communication and efficiency in healthcare delivery.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Main Content -->
+<div class="bg-gray-100 py-12">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">Welcome to Our Health Management System</h1>
+      <p class="text-lg md:text-xl">
+        Our Health Management System is designed to streamline the management of patient records, prescriptions, and medical histories. With our system, doctors and patients can easily access and update their information, improving communication and efficiency in healthcare delivery.
       </p>
-      <h2>Key Features</h2>
-      <ul>
-        <li>feature 1</li>
-        <li>feature 2</li>
-        <li>feature 3</li>
-        <li>feature 4</li>
-        <li>feature 5</li>
-        <li>feature 6</li>
-        <li>feature 7</li>
-        <li>feature 8</li>
-        <li>feature 9</li>
-        <li>feature 10</li>
-        <li>feature 11</li>
-        <li>feature 12</li>
-        <li>feature 13</li>
-        <li>feature 14</li>
-        <li>feature 15</li>
-        <li>feature 16</li>
-        <li>feature 17</li>
-        <li>feature 18</li>
-        <li>feature 19</li>
-        <li>feature 20</li>
-        <li>feature 21</li>
-        <li>feature 22</li>
-        <li>feature 23</li>
-        <li>feature 24</li>
-        <li>feature 25</li>
-        <li>feature 26</li>
-        <li>feature 27</li>
-      </ul>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-white p-6 shadow-md rounded-md">
+        <h2 class="text-xl font-semibold mb-4">Key Features</h2>
+        <ul class="list-disc ml-6">
+          <li>Feature 1</li>
+          <li>Feature 2</li>
+          <li>Feature 3</li>
+        </ul>
+      </div>
+
+      <div class="bg-white p-6 shadow-md rounded-md">
+        <h2 class="text-xl font-semibold mb-4">Why Choose Us?</h2>
+        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin faucibus porttitor dui.</p>
+        <p>Sim in vestibulum metus pulvinar sit amet.</p>
+      </div>
+
+      <div class="bg-white p-6 shadow-md rounded-md">
+        <h2 class="text-xl font-semibold mb-4">Testimonials</h2>
+        <div class="mb-4">
+          <p class="font-semibold">John Doe</p>
+          <p class="text-sm">"Great experience with the Health Management System. It's made my life so much easier!"</p>
+        </div>
+        <div>
+          <p class="font-semibold">Jane Smith</p>
+          <p class="text-sm">"Highly recommend this system for its user-friendly interface and comprehensive features."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-8">
       <a href="/about" class="btn btn-primary">Learn More</a>
     </div>
   </div>

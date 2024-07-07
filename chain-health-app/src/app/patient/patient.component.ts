@@ -64,21 +64,6 @@ export class PatientComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // purchasePrescription(event: Event, prescription: any): void {
-  //   this.isLoading = true; // Show loading component
-  //   event.stopPropagation();
-  //   // Simulate API call delay with setTimeout
-  //   setTimeout(() => {
-  //     if (prescription.state === 'confirmed') {
-  //       prescription.state = '';
-  //       console.log('Prescription purchased:', prescription);
-  //     } else {
-  //       console.log('Cannot purchase prescription. State is not "Approved".');
-  //     }
-  //     this.isLoading = false; // Hide loading component after 3 seconds
-  //   }, 3000); // Wait for 3 seconds
-  // }
-
 
   purchasePrescription(event: Event, prescription: any): void {
     event.stopPropagation();
