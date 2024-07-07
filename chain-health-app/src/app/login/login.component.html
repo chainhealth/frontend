@@ -3,27 +3,26 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<!-- to change colors search for purple and change it -->
 <div class="relative flex min-h-screen text-gray-800 antialiased flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
   <div class="relative py-3 sm:w-96 mx-auto text-center">
-    <span class="text-2xl font-light">Login to your account</span>
+    <span class="text-3xl text-blue-800">Login to your account</span>
     <div class="mt-4 bg-white shadow-md rounded-lg text-left px-4 py-6">
-      <div class="h-2 bg-purple-400 rounded-t-md"></div>
+      <div class="h-2 bg-blue-500 rounded-t-md"></div>
       <div class="mt-4">
         <label class="block font-semibold">Username or Email</label>
         <!-- Add ngModel to bind input value to username -->
-        <input type="text" placeholder="Email" class="border w-full py-2 px-3 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md" [(ngModel)]="username">
+        <input type="text" placeholder="Email" class="border w-full py-2 px-3 mt-2 hover:outline-none focus:outline-none focus:ring-blue-500 focus:ring-1 rounded-md" [(ngModel)]="username">
       </div>
       <div class="mt-4">
         <label class="block font-semibold">Password</label>
         <!-- Add ngModel to bind input value to password -->
-        <input type="password" placeholder="Password" class="border w-full py-2 px-3 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md" [(ngModel)]="password">
+        <input type="password" placeholder="Password" class="border w-full py-2 px-3 mt-2 hover:outline-none focus:outline-none focus:ring-blue-500 focus:ring-1 rounded-md" [(ngModel)]="password">
       </div>
       <!-- Display error message if it exists -->
       <div *ngIf="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</div>
       <div class="mt-6 flex justify-between items-center">
         <!-- Add click event to trigger login function -->
-        <button type="button" class="bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-purple-600" (click)="login()">Login</button>
+        <button type="button" class="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600" (click)="login()">Login</button>
         <!-- <a href="#" class="text-sm hover:underline">Forgot password?</a> -->
       </div>
     </div>
