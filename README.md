@@ -1,27 +1,59 @@
-# ChainHealthApp
+# Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+## Development Environment Setup
 
-## Development server
+To run the application in the development environment, follow these steps:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Navigate to the `chain-health-app` directory:
+    ```sh
+    cd chain-health-app
+    ```
 
-## Code scaffolding
+2. Build the Docker image named `chain-health-dev` using the provided Dockerfile for development:
+    ```sh
+    docker build -t chain-health-dev -f Dockerfile.dev .
+    ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. Run the Docker container in interactive mode with port mapping and volume mounting:
+    ```sh
+    docker run -itp 4200:4200 -v "$(pwd):/app" chain-health-dev
+    ```
 
-## Build
+4. Visit [localhost:4200](http://localhost:4200) in your web browser to access the application.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Production Environment Setup
 
-## Running unit tests
+To run the application in the production environment, follow these steps:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Navigate to the `chain-health-app` directory:
+    ```sh
+    cd chain-health-app
+    ```
 
-## Running end-to-end tests
+2. Run Docker Compose to build and start the production containers:
+    ```sh
+    docker-compose up -d --build
+    ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. Visit [localhost:80](http://localhost:80) in your web browser to access the application.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Project Initialization
+
+If you're starting a new project, you can initialize it with Angular CLI as follows:
+
+1. Create a new Angular project named `chain-health-app` without standalone configuration:
+    ```sh
+    ng new chain-health-app --no-standalone
+    ```
+
+2. Navigate into the newly created project directory:
+    ```sh
+    cd chain-health-app
+    ```
+
+3. Generate a new component named `login` using Angular CLI:
+    ```sh
+    ng generate component login
+    ```
