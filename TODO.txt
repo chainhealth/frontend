@@ -59,3 +59,10 @@ insurance:
 
 
 no patient found doesnt work
+
+
+docs:
+
+why angular
+features
+file structure
