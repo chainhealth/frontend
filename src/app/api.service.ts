@@ -135,7 +135,7 @@ export class ApiService {
       }
     }
 
-    // Return a user-facing error message instead of alerting
+    // return a user-facing error message
     return throwError(errorMessage);
   }
 }

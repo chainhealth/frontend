@@ -1,3 +1,9 @@
+/**
+ * Insurance Component
+ * 
+ * This component fetches and displays insurance data in table by material.
+ * It includes functionalities for filtering data, paginantion, sorting columns, and navigating to insurance claims.
+ */
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,6 +25,9 @@ export class InsuranceComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['firstName', 'lastName', 'patientId', 'insuranceId', 'insuranceState', 'remainingBalance', 'claimedBalance'];
 
+  // @ViewChild specifies that you want to query for a child component or directive
+  // ! indicates that TypeScript should not treat this property as possibly undefined or null,
+  // ensuring it will be initialized correctly by Angular's view lifecycle
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
@@ -38,7 +47,6 @@ export class InsuranceComponent implements OnInit {
 
   applyFilter() {
     const filterValue = this.filterInput.nativeElement.value;
-    console.log('Filter value:', filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -50,7 +58,8 @@ export class InsuranceComponent implements OnInit {
           this.userData = response.userData;
           this.dataSource.data = this.userData;
         } else {
-          console.error('Invalid response format for insurance data');
+          window.alert('Something Wrong happened. Please try again later.');
+          // console.error('Invalid response format for insurance data');
         }
         this.isLoading = false;
 

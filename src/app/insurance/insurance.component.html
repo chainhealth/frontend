@@ -1,16 +1,16 @@
-<!-- Add mat-spinner for loading state -->
+<!-- mat-spinner for loading state -->
 <div class="spinner-container" *ngIf="isLoading">
   <mat-spinner></mat-spinner>
 </div>
 
 <h2>Insurance</h2>
-<div class="example-header">
+<div>
   <mat-form-field>
     <input matInput #filterInput (keyup)="applyFilter()" placeholder="Filter">
   </mat-form-field>
 </div>
 
-<div class="example-container mat-elevation-z8">
+<div class="mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
 
     <!-- First Name Column -->

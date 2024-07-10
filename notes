@@ -1,0 +1,3 @@
+ngOnInit: Used for initializing data and performing tasks that don’t depend on the view.
+ngAfterViewInit: Used for tasks that require the view to be fully initialized, such as setting up sorting, pagination, or interacting with child components.
+

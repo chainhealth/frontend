@@ -5,26 +5,29 @@
 
 <h2>Prescriptions</h2>
 
-<div class="mat-elevation-z8">
-
+<div>
   <mat-form-field>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+    <input matInput #filterInput (keyup)="applyFilter()" placeholder="Filter">
   </mat-form-field>
+</div>
 
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
 
+    <!-- Prescription ID Column -->
     <ng-container matColumnDef="prescriptionId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Prescription ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.prescriptionId}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Prescription ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.prescriptionId}} </mat-cell>
     </ng-container>
 
+    <!-- State Column -->
     <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
-      <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirectToPrescription(row.patientId, row.prescriptionId)"></tr>
-  </table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirectToPrescription(row.patientId, row.prescriptionId)"></mat-row>
+  </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

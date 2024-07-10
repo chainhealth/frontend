@@ -10,8 +10,8 @@ services:
       - 80
     networks:
       - internalnet
-    volumes:
-      - .:/app  # Mount current directory to /app in the container
+    # volumes:
+    #   - .:/app  # Mount current directory to /app in the container
 
 networks:
   internalnet:

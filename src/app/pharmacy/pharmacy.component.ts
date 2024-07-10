@@ -16,8 +16,7 @@ export class PharmacyComponent implements AfterViewInit {
   @Input() isPharmacyView: boolean = true;
   patientFound: boolean = false;
   searchPerformed: boolean = false;
-  patientId: string = "";//| null = null;
-  // patientId2: string | null = null;
+  patientId: string = "";
   patient: any = {};
   patientName: string = "";
   @ViewChild(MatSort) sort!: MatSort;
