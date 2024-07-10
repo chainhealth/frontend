@@ -16,7 +16,6 @@ import { HomeComponent } from './home/home.component';
 import { GeneralNavbarComponent } from './shared/general-navbar/general-navbar.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { InsuranceComponent } from './insurance/insurance.component';
-import { PatientInsuranceDetailsComponent } from './insurance/patient-insurance-details/patient-insurance-details.component';
 import { InsuranceClaimsComponent } from './insurance/insurance-claims/insurance-claims.component';
 import { HeroComponent } from './hero/hero.component';
 import { FooterComponent } from './footer/footer.component';
@@ -48,7 +47,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     GeneralNavbarComponent,
     PharmacyComponent,
     InsuranceComponent,
-    PatientInsuranceDetailsComponent,
     InsuranceClaimsComponent,
     HeroComponent,
     FooterComponent,
