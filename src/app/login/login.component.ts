@@ -44,7 +44,7 @@ export class LoginComponent {
     this.apiService.getHomePage().subscribe({
       next: (response) => {
         const role = response.userType;
-        console.log('Role received:', role);
+        // console.log('Role received:', role);
         this.authService.setUserRole(role);
         this.redirectUser(role);
       },

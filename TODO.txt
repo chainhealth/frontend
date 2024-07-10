@@ -71,3 +71,4 @@ file structure
 change post to get
 patient id problem
 remove .env from github backend
+remove safe-html pipe
