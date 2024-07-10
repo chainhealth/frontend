@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { PatientComponent } from './patient/patient.component';
-import { PatientDetailsComponent } from './shared/patient-details/patient-details.component';
 import { SearchComponent } from './shared/search/search.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { DoctorComponent } from './doctor/doctor.component';
@@ -27,7 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { PrescriptionsComponent } from './shared/prescriptions/prescriptions.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
@@ -37,7 +36,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     AppComponent,
     LoginComponent,
     PatientComponent,
-    PatientDetailsComponent,
     SearchComponent,
     LoadingComponent,
     DoctorComponent,

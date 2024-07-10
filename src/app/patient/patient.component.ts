@@ -47,7 +47,7 @@ export class PatientComponent implements OnInit, AfterViewInit {
         const pageData = data.pageData;
         this.patientBalance = parseFloat(pageData.balance);
         this.patientPrescriptions = pageData.prescription.map((presc: any) => ({
-          // id: presc.prescId,
+          id: presc.prescId,
           name: `${presc.prescId}`,
           state: presc.prescState,
         }));

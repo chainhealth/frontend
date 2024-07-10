@@ -111,7 +111,7 @@ export class ApiService {
       console.log(error.status);
       switch (error.status) {
         case 400:
-          errorMessage = 'Invalid Credentials.';
+          errorMessage = 'Bad request error.';
           break;
         case 401:
           errorMessage = 'Session expired. Please log in again.';
