@@ -7,7 +7,7 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './services/auth.guard';
 import { AboutComponent } from './about/about.component';
 import { PrescriptionsComponent } from './shared/prescriptions/prescriptions.component';
 

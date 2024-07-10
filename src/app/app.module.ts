@@ -29,7 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PrescriptionsComponent } from './shared/prescriptions/prescriptions.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './auth.interceptor';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 @NgModule({
   declarations: [

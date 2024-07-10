@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { ApiService } from '../api.service'; // Make sure to import ApiService
+import { ApiService } from '../services/api.service'; // Make sure to import ApiService
 
 @Component({
   selector: 'app-pharmacy',
