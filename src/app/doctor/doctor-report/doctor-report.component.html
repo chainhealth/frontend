@@ -1,9 +1,12 @@
+<!-- Doctor Report Component HTML Template -->
 <div class="bg-gray-100 rounded-md p-4">
   <div class="p-4">
+    <!-- textarea for the doctor's report -->
     <div class="mb-4">
       <label for="report" class="block">Report:</label>
       <textarea id="report" [(ngModel)]="report" class="w-full border rounded px-3 py-2"></textarea>
     </div>
+    <!-- inputs for adding a prescription -->
     <div class="mb-4">
       <div class="flex items-center mb-2">
         <label for="medicationName" class="block mr-2 py-2">Medication:</label>
@@ -15,6 +18,7 @@
         <button (click)="addPrescription()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
       </div>
     </div>
+    <!-- display the list of added prescriptions -->
     <div *ngIf="prescriptions.length > 0" class="mb-4">
       <h3>Prescriptions:</h3>
       <ul>
@@ -23,6 +27,7 @@
         </li>
       </ul>
     </div>
+    <!-- submit report button -->
     <div>
       <button (click)="submitReport()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit Report</button>
     </div>

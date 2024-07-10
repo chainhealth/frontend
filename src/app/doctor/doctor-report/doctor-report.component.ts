@@ -1,3 +1,11 @@
+/**
+ * Doctor Report Component
+ *
+ * This component allows doctors to write and submit a medical report which includes the description
+ * of the report, medcine name(s), frequency and dosage then emits these responses the doctor 
+ * component through the Emitters: prescriptionAdded and prescriptionAdded which then handles
+ * the data 
+ */
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -7,11 +15,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class DoctorReportComponent {
   report: string = ''; // For the report input
-  prescriptions: { name: string, dosage: string, frequency: string }[] = []; // For the list of prescriptions
-  medicationName: string = ''; // For the medication name input
-  dosage: string = ''; // For the dosage input
-  frequency: string = ''; // For the frequency input
+  prescriptions: { name: string, dosage: string, frequency: string }[] = []; // for the list of prescriptions
+  medicationName: string = '';
+  dosage: string = ''; 
+  frequency: string = '';
 
+  // emitters to send data to parent component (DoctorComponent)
   @Output() reportSubmitted = new EventEmitter<{ report: string, prescriptions: { name: string, dosage: string, frequency: string }[] }>();
   @Output() prescriptionAdded = new EventEmitter<{ name: string, dosage: string, frequency: string }>();
 
@@ -23,10 +32,12 @@ export class DoctorReportComponent {
         frequency: this.frequency.trim()
       };
       this.prescriptions.push(prescription);
-      this.medicationName = ''; // Clear the medication name input field after adding prescription
-      this.dosage = ''; // Clear the dosage input field after adding prescription
-      this.frequency = ''; // Clear the frequency input field after adding prescription
-      this.prescriptionAdded.emit(prescription); // Emit the added prescription to the parent component
+      this.prescriptionAdded.emit(prescription); // emit the added prescription to the parent component
+
+      // clear medicine details after added
+      this.medicationName = '';
+      this.dosage = '';
+      this.frequency = '';
     }
   }
 

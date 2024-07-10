@@ -1,9 +1,13 @@
-<!-- Add mat-spinner for loading state -->
+<!-- Doctor Component HTML Template -->
+
+<!-- mat-spinner for loading state -->
 <div class="spinner-container" *ngIf="isLoading">
   <mat-spinner></mat-spinner>
 </div>
 
 <div class="p-4">
+
+  <!-- Input field to enter patient ID and search button -->
   <div class="mb-4">
     <label for="patientId" class="block mr-2">Enter Patient ID:</label>
     <input
@@ -20,6 +24,7 @@
     </button>
   </div>
 
+  <!-- Display patient details if found -->
   <div *ngIf="patientFound" class="mb-4">
     <div class="bg-gray-100 rounded-md p-4">
       <h2 class="text-xl font-bold mb-2">Patient Details</h2>
@@ -38,6 +43,7 @@
         </div>
       </div>
 
+      <!-- Display patient's medical history -->
       <h3 class="text-lg font-bold mt-4">Medical History</h3>
       <div class="grid grid-cols-1 gap-4 mt-2">
         <div class="bg-white shadow-md rounded-md p-4">
@@ -84,7 +90,7 @@
           </table>
         </div>
         
-
+        <!-- Display old prescriptions -->
         <div class="bg-white shadow-md rounded-md p-4">
           <h3 class="text-lg font-bold mt-4">Old Prescriptions</h3>
           <ul class="list-disc ml-4">
@@ -97,10 +103,12 @@
     </div>
   </div>
 
+  <!-- Message displayed if no patient is found -->
   <div *ngIf="!patientFound && searchPerformed" class="mb-4">
     <p>No patient found with ID: {{ patientId }}</p>
   </div>
 
+  <!-- Button to toggle report section visibility -->
   <div *ngIf="patientFound" class="mb-4">
     <button
       (click)="toggleReportSection()"
@@ -109,6 +117,7 @@
       Toggle Report Section
     </button>
 
+    <!-- message boxes taken from https://tailwindcss.com/ -->
     <div *ngIf="showReportSection" class="mt-4">
       <!-- Success message display -->
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert" *ngIf="isSuccess">

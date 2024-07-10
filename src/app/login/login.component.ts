@@ -19,7 +19,10 @@ export class LoginComponent {
   isLoading: boolean = false; // Flag to indicate loading state
 
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private authService: AuthService) {}
 
   login(): void {
     this.isLoading = true;

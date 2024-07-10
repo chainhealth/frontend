@@ -32,6 +32,7 @@ import { PrescriptionsComponent } from './prescriptions/prescriptions.component'
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,8 @@ import { AuthInterceptor } from './auth.interceptor';
     InsuranceClaimsComponent,
     HeroComponent,
     FooterComponent,
-    PrescriptionsComponent
+    PrescriptionsComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

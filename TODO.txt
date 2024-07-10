@@ -66,3 +66,8 @@ docs:
 why angular
 features
 file structure
+
+
+change post to get
+patient id problem
+remove .env from github backend
