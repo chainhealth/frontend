@@ -1,4 +1,12 @@
-import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
+/**
+ * Pharmacy Component
+ * 
+ * Allows pharmacy worker to search for patient using ID and if found, the prescriptions 
+ * appear in a table and each one has a sell button that sends an api call to confirm selling.
+ * if a row is clicked, the user is redirected to the prescription component.
+ *  
+ */
+import { Component, Input, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,10 +27,16 @@ export class PharmacyComponent implements AfterViewInit {
   patientId: string = "";
   patient: any = {};
   patientName: string = "";
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['id', 'state', 'action']; // Adjusted columns
+  
+  // @ViewChild specifies that you want to query for a child component or directive
+  // ! indicates that TypeScript should not treat this property as possibly undefined or null,
+  // ensuring it will be initialized correctly by Angular's view lifecycle
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;
 
   constructor(private router: Router, private apiService: ApiService) {}
 
@@ -31,13 +45,9 @@ export class PharmacyComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter() {
+    const filterValue = this.filterInput.nativeElement.value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   viewPrescription(prescriptionId: string) {
@@ -47,8 +57,6 @@ export class PharmacyComponent implements AfterViewInit {
   sellPrescription(event: Event, prescription: any) {
     event.stopPropagation();
     this.isLoading = true;
-    // console.log(this.patient, prescription.prescriptionId );
-    // const patientId2  = localStorage.getItem("username");
     this.apiService.confirmPrescriptionPharmacy(this.patientId, prescription.prescriptionId).subscribe(
       response => {
         console.log(response);
@@ -68,10 +76,9 @@ export class PharmacyComponent implements AfterViewInit {
   }
 
   searchPatient(patientId: string) {
-    console.log('Searching for patient with ID:', patientId);
     localStorage.setItem('username', patientId);
     this.patientId = patientId;
-    this.searchPerformed = true;
+    
 
     if (!patientId) {
       this.patientFound = false;
@@ -101,6 +108,7 @@ export class PharmacyComponent implements AfterViewInit {
           this.dataSource.data = [];
           console.log('No patient found with ID:', patientId);
         }
+        this.searchPerformed = true;
       },
       error => {
         this.isLoading = false;

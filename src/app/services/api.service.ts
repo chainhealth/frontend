@@ -1,7 +1,13 @@
-/* 
-  using arrow functions to handle errors is mandatory here it doesnt work without them as the keyword
-  'this' means another thing in that context
-*/
+/**
+ * API service
+ * 
+ * The api service deals with all api calls to the backend so components only call the method
+ * names in this file to interact with the backend.
+ * 
+ * Using arrow functions to handle errors is needed here it doesnt work without them as the keyword
+ * 'this' means another thing in that context
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -14,8 +20,10 @@ import { Router } from '@angular/router';
 })
 
 export class ApiService {
+  
   private apiUrl = 'http://localhost:3000';
   isLoggedIn: boolean | undefined;
+
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
     // Subscribe to the login status observable
     this.authService.isLoggedIn.subscribe((loggedIn) => {
@@ -30,6 +38,7 @@ export class ApiService {
       Authorization: `Bearer ${token}`,
     });
   }
+
   login(username: string, password: string): Observable<any> {
     const url = `${this.apiUrl}/login`;
     return this.http.post(url, { username, password }).pipe(
@@ -99,7 +108,6 @@ export class ApiService {
     );
   }
 
-
   private handleError(error: any) {
     let errorMessage = '';
 
@@ -135,7 +143,6 @@ export class ApiService {
       }
     }
 
-    // return a user-facing error message
     return throwError(errorMessage);
   }
 }

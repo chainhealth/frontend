@@ -1,3 +1,10 @@
+/**
+ * Patient Component
+ *
+ * This component displays the patient's prescriptions in a table and allows purchasing
+ * each prescription. When a prescription is pressed it the user is redirected to
+ * the prescription component. 
+ */
 import {
   Component,
   Input,
@@ -19,6 +26,7 @@ import { ApiService } from '../services/api.service';
 })
 export class PatientComponent implements OnInit, AfterViewInit {
   isLoading: boolean = false;
+  patientName: string = "";
   patientBalance: number = 0;
   patientPrescriptions: any[] = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -46,11 +54,14 @@ export class PatientComponent implements OnInit, AfterViewInit {
       (data) => {
         const pageData = data.pageData;
         this.patientBalance = parseFloat(pageData.balance);
+        this.patientName = pageData.firstName;
+
         this.patientPrescriptions = pageData.prescription.map((presc: any) => ({
           id: presc.prescId,
           name: `${presc.prescId}`,
           state: presc.prescState,
         }));
+
         this.dataSource.data = this.patientPrescriptions;
         this.isLoading = false;
       },

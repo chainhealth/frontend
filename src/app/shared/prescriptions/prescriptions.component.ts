@@ -1,3 +1,8 @@
+/**
+ * Prescriptions Component
+ * 
+ * Displays list of all prescriptions inside a prescription.
+ */
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';

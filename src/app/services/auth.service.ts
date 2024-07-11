@@ -1,3 +1,11 @@
+/**
+ * AuthService
+ * 
+ * This service manages user authentication and role-based access in the application. It uses 
+ * BehaviorSubjects to manage the state of user login status and user role, ensuring that components 
+ * can reactively respond to authentication changes.
+ */
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -5,6 +13,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  // BehaviorSubjects to hold the login status and userRole initialized in localStorage
+  // A BehaviorSubject in RxJS acts like a reactive variable that not only holds a current
+  // value but also notifies all subscribers immediately whenever its value changes.
   private loggedIn = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   private userRole = new BehaviorSubject<string | null>(localStorage.getItem('role'));
 

@@ -1,3 +1,11 @@
+/**
+ * Login Component
+ * 
+ * Gets username and password from user and sends an api request to query the user.
+ * If the user exists the login method from the auth.service is called to handle logging in.
+ * A token and role are recieved and placed in the localstorage then the user is redirect to
+ * the corresponding page ie /patient or /pharmacy or /insurance or /doctor based on the role.
+ */
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
