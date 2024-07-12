@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { PatientComponent } from './patient/patient.component';
 import { SearchComponent } from './shared/search/search.component';
-import { LoadingComponent } from './shared/loading/loading.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { DoctorReportComponent } from './doctor/doctor-report/doctor-report.component';
 import { AboutComponent } from './about/about.component';
@@ -16,8 +15,6 @@ import { GeneralNavbarComponent } from './shared/general-navbar/general-navbar.c
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { InsuranceComponent } from './insurance/insurance.component';
 import { InsuranceClaimsComponent } from './insurance/insurance-claims/insurance-claims.component';
-import { HeroComponent } from './hero/hero.component';
-import { FooterComponent } from './footer/footer.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { MatInputModule } from '@angular/material/input';
@@ -37,7 +34,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     LoginComponent,
     PatientComponent,
     SearchComponent,
-    LoadingComponent,
     DoctorComponent,
     DoctorReportComponent,
     AboutComponent,
@@ -46,8 +42,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     PharmacyComponent,
     InsuranceComponent,
     InsuranceClaimsComponent,
-    HeroComponent,
-    FooterComponent,
     PrescriptionsComponent,
     SafeHtmlPipe
   ],
