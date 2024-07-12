@@ -8,6 +8,7 @@
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { GeneralNavbarComponent } from '../shared/general-navbar/general-navbar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class AuthService {
   // value but also notifies all subscribers immediately whenever its value changes.
   private loggedIn = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   private userRole = new BehaviorSubject<string | null>(localStorage.getItem('role'));
+  role$ = this.userRole.asObservable();
+  private roleSubject = new BehaviorSubject<string>(localStorage.getItem('role') || '');
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -26,11 +29,25 @@ export class AuthService {
   get role() {
     return this.userRole.asObservable();
   }
+  setRole(role: string): void {
+    localStorage.setItem('role', role);
+    this.roleSubject.next(role);
+  }
+
+  getRole(): string {
+    return this.roleSubject.value;
+  }
+
+  clearRole(): void {
+    localStorage.removeItem('role');
+    this.roleSubject.next('guest');
+  }
 
   login(token: string, username: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
     this.loggedIn.next(true);
+    // this.userRoleService.getRole(localStorage.getItem('role'));
   }
 
   setUserRole(role: string): void {

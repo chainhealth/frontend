@@ -9,11 +9,19 @@ import { AuthService } from '../../services/auth.service';
 })
 export class GeneralNavbarComponent {
   isLoggedIn: boolean = false;
-  
+  homeRoute: string = '/';
+
   constructor(private router: Router, private authService: AuthService) {
     // Subscribe to the login status observable
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
+    });
+  }
+
+  ngOnInit() {
+    // Subscribe to the role observable and set the home route
+    this.authService.role$.subscribe((role) => {
+      this.setHomeRoute(role || '');
     });
   }
 
@@ -30,5 +38,19 @@ export class GeneralNavbarComponent {
 
   isActive(route: string): boolean {
     return this.router.url === route;
+  }
+
+  setHomeRoute(role: string) {
+    if (role === 'MinistryofhealthMSP') {
+      this.homeRoute = '/patient';
+    } else if (role === 'Doctor') {
+      this.homeRoute = '/doctor';
+    } else if (role === 'Insurance') {
+      this.homeRoute = '/insurance';
+    } else if (role === 'Pharmacy') {
+      this.homeRoute = '/pharmacy';
+    } else {
+      this.homeRoute = '/';
+    }
   }
 }
