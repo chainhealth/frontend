@@ -23,7 +23,7 @@
     </div>
 
   <div *ngIf="patientFound">
-    <h4>Balance: {{ patient.balance }}</h4>
+    <h4>Balance: ${{ patient.balance }}</h4>
 
     <!-- Searching -->
     <div>
@@ -33,7 +33,7 @@
     </div>
 
 
-    <div class="example-container mat-elevation-z8">
+    <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
         <!-- Name Column -->
         <ng-container matColumnDef="id">
