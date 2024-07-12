@@ -16,7 +16,7 @@ To run the application in the development environment, follow these steps:
 
 3. Run the Docker container in interactive mode with port mapping and volume mounting:
     ```sh
-    docker run -itp 4200:4200 -v "$(pwd):/app" chain-health-dev
+    docker run -itp 4200:4200 chain-health-dev
     ```
 
 4. Visit [localhost:4200](http://localhost:4200) in your web browser to access the application.
