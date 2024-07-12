@@ -37,23 +37,3 @@ To run the application in the production environment, follow these steps:
 
 3. Visit [localhost:80](http://localhost:80) in your web browser to access the application.
 
-
-
-## Project Initialization
-
-If you're starting a new project, you can initialize it with Angular CLI as follows:
-
-1. Create a new Angular project named `chain-health-app` without standalone configuration:
-    ```sh
-    ng new chain-health-app --no-standalone
-    ```
-
-2. Navigate into the newly created project directory:
-    ```sh
-    cd chain-health-app
-    ```
-
-3. Generate a new component named `login` using Angular CLI:
-    ```sh
-    ng generate component login
-    ```
