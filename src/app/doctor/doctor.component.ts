@@ -27,6 +27,7 @@ export class DoctorComponent implements OnInit{
   successMessage: string = ''; // success message to display
   showReportSection: boolean = false; // flag to toggle report section visibility
   allowedMedicines: string[] = [];
+  userError: boolean = false; // for dosage and freq if not numbers
   
   constructor(private apiService: ApiService) {}
 
@@ -74,7 +75,6 @@ export class DoctorComponent implements OnInit{
     this.apiService.getMedicines().subscribe(
       (data) => {
         this.allowedMedicines = data.medicineNames;
-        console.log(this.allowedMedicines);
       },
       (error) => {
         console.error('Error fetching medicines:', error);
@@ -88,40 +88,57 @@ export class DoctorComponent implements OnInit{
     // ensure this.patientId is not null before calling writePrescription
     if (this.patientId) {
       // prepare data to send to api
+      this.userError = false; // Reset userError
       const prescriptionData = {
         report: eventData.report,
-        medicine: eventData.prescriptions.map(p => ({
-          name: p.name,
-          dosage: +p.dosage, // convert dosage to number
-          frequency: +p.frequency // convert frequency to number
-        }))
-      };
-
-      this.isLoading = true; // set loading state to true
-      // call api service to submit prescription
-      this.apiService.writePrescription(this.patientId, prescriptionData).subscribe(
-        (response) => {
-          console.log('Prescription submitted successfully:', response);
-          this.isError = false;
-          this.isSuccess = true;
-          this.successMessage = 'Report submitted successfully!';
-          this.isLoading = false;
-          if (this.patientId) {
-            this.searchPatient(this.patientId); // Call searchPatient with the current patientId
+        medicine: eventData.prescriptions.map(p => {
+          const dosage = +p.dosage;
+          const frequency = +p.frequency;
+          
+          if (isNaN(dosage) || isNaN(frequency)) {
+            this.userError = true;
           }
-        },
-        (error) => {
-          console.error('Error submitting prescription:', error);
+  
+          return {
+            name: p.name,
+            dosage: dosage,
+            frequency: frequency
+          };
+        })
+      };
+      if (!this.userError) {
+        this.isLoading = true; // set loading state to true
+        // call api service to submit prescription
+        this.apiService.writePrescription(this.patientId, prescriptionData).subscribe(
+          (response) => {
+            console.log('Prescription submitted successfully:', response);
+            this.isSuccess = true;
+            this.successMessage = 'Report submitted successfully!';
+            this.isLoading = false;
+            this.isError = false;
+            if (this.patientId) {
+              this.searchPatient(this.patientId); // Call searchPatient with the current patientId
+            }
+          },
+          (error) => {
+            console.error('Error submitting prescription:', error);
+            this.isSuccess = false;
+            this.isError = true; 
+            this.errorMessage = 'An error occurred. Please try again.';
+            this.isLoading = false; 
+          }
+        );
+      } else{
+          this.isSuccess = false;
           this.isError = true; 
-          this.errorMessage = 'An error occurred. Please try again.';
-          this.isLoading = false; 
+          this.isLoading = false;
+          this.userError = false 
         }
-      );
-    } else {
-      console.error('Patient ID is null or undefined.');
-    }
+      }
+      else {
+       console.error('Patient ID is null or undefined.');
+     }
   }
-
   
 
   handlePrescriptionAdded(prescription: { name: string, dosage: string, frequency: string }) {
