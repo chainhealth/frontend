@@ -10,7 +10,9 @@
     <div class="mb-4">
       <div class="flex items-center mb-2">
         <label for="medicationName" class="block mr-2 py-2">Medication:</label>
-        <input type="text" id="medicationName" [(ngModel)]="medicationName" class="w-1/3 border rounded px-3 py-2 mr-2">
+        <select id="medicationName" [(ngModel)]="medicationName" class="w-1/3 border rounded px-3 py-2">
+          <option *ngFor="let medicine of allowedMedicines" [value]="medicine">{{ medicine }}</option>
+        </select>        
         <label for="dosage" class="block mr-2 ml-2 py-2">Dosage:</label>
         <input type="text" id="dosage" [(ngModel)]="dosage" class="w-1/6 border rounded px-3 py-2 mr-2">
         <label for="frequency" class="block mr-2 ml-2 py-2">Frequency:</label>

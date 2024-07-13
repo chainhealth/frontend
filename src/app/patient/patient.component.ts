@@ -32,7 +32,6 @@ export class PatientComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   displayedColumns: string[] = ['name', 'state', 'action'];
 
-  @Input() isPharmacyView: boolean = false;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('filterInput') filterInput!: ElementRef<HTMLInputElement>;

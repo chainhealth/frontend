@@ -108,6 +108,13 @@ export class ApiService {
     );
   }
 
+  getMedicines(): Observable<any> {
+    const url = `${this.apiUrl}/medicines`;
+    return this.http.get<{ medicineNames: string[] }>(url, { headers: this.getHeaders() }).pipe(
+      catchError((error) => this.handleError(error))
+    );
+  }
+
   private handleError(error: any) {
     let errorMessage = '';
 

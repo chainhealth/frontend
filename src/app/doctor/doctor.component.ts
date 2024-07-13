@@ -6,7 +6,7 @@
  * Reports can also be submitted with the report data being emitted from a nested component called DoctorReport.
  */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { ApiService } from '../services/api.service';
   templateUrl: './doctor.component.html',
   styleUrls: ['./doctor.component.scss']
 })
-export class DoctorComponent {
+export class DoctorComponent implements OnInit{
   patientFound: boolean = false;
   searchPerformed: boolean = false;
   patientId: string | null = null;
@@ -26,7 +26,8 @@ export class DoctorComponent {
   isSuccess: boolean = false; // flag to indicate success state
   successMessage: string = ''; // success message to display
   showReportSection: boolean = false; // flag to toggle report section visibility
-
+  allowedMedicines: string[] = [];
+  
   constructor(private apiService: ApiService) {}
 
   // method to search for patients by ID
@@ -69,6 +70,18 @@ export class DoctorComponent {
     this.showReportSection = !this.showReportSection;
   }
 
+  ngOnInit(){
+    this.apiService.getMedicines().subscribe(
+      (data) => {
+        this.allowedMedicines = data.medicineNames;
+        console.log(this.allowedMedicines);
+      },
+      (error) => {
+        console.error('Error fetching medicines:', error);
+      }
+    );
+  }
+
   // handle the submission of the report data by getting the report from the child component DoctorReportComponent
   handleReportSubmission(eventData: { report: string, prescriptions: { name: string, dosage: string, frequency: string }[] }) {
 
@@ -108,6 +121,8 @@ export class DoctorComponent {
       console.error('Patient ID is null or undefined.');
     }
   }
+
+  
 
   handlePrescriptionAdded(prescription: { name: string, dosage: string, frequency: string }) {
     console.log('Prescription added:', prescription);

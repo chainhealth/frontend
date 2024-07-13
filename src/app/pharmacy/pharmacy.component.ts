@@ -21,7 +21,6 @@ import { ApiService } from '../services/api.service'; // Make sure to import Api
 export class PharmacyComponent implements AfterViewInit {
   isLoading: boolean = false;
   
-  @Input() isPharmacyView: boolean = true;
   patientFound: boolean = false;
   searchPerformed: boolean = false;
   patientId: string = "";

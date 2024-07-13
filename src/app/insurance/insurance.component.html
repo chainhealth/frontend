@@ -45,13 +45,13 @@
 
     <!-- Remaining Balance Column -->
     <ng-container matColumnDef="remainingBalance">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Remaining Balance </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Remaining Balance in $ </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.remainingBalance}} </mat-cell>
     </ng-container>
 
     <!-- Claimed Balance Column -->
     <ng-container matColumnDef="claimedBalance">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Claimed Balance </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Claimed Balance $ </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.claimedBalance}} </mat-cell>
     </ng-container>
 

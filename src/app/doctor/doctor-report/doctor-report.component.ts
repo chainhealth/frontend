@@ -6,7 +6,8 @@
  * component through the Emitters: prescriptionAdded and prescriptionAdded which then handles
  * the data 
  */
-import { Component, EventEmitter, Output } from '@angular/core';
+
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-doctor-report',
@@ -24,7 +25,12 @@ export class DoctorReportComponent {
   @Output() reportSubmitted = new EventEmitter<{ report: string, prescriptions: { name: string, dosage: string, frequency: string }[] }>();
   @Output() prescriptionAdded = new EventEmitter<{ name: string, dosage: string, frequency: string }>();
 
+  // get the medicines list from the doctor component
+  @Input() allowedMedicines: string[] = [];
+  
   addPrescription() {
+    console.log(this.allowedMedicines);
+
     if (this.medicationName.trim() && this.dosage.trim() && this.frequency.trim()) {
       const prescription = {
         name: this.medicationName.trim(),
