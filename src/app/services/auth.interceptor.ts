@@ -1,3 +1,11 @@
+/**
+ * HTTP Interceptor to add authorization token to outgoing requests.
+ *
+ * This interceptor checks if there is a token stored in localStorage.
+ * If a token exists, it adds an Authorization header with the token to the request.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
