@@ -1,3 +1,11 @@
+/**
+ * General Navbar Component
+ *
+ * Component representing the general navigation bar of the application. This component
+ * handles user authentication (to be able to either display login or logout), status,
+ * navigation logic, and dynamic home route setting based on user roles.
+ */
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
