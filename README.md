@@ -53,7 +53,7 @@ To run the application in the production environment without Docker, follow thes
 
 4. **Serve the built application:**
     ```sh
-    http-server -p 80 ./dist/chain-health-app
+    sudo http-server -p 80 ./dist/chain-health-app/browser/
     ```
 
 5. **Visit [localhost](http://localhost) in your web browser to access the application.**
