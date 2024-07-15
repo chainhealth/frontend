@@ -42,7 +42,7 @@ To run the application in the production environment without Docker, follow thes
 
 2. **Build the Angular application for production:**
     ```sh
-    ng build --prod
+    npm run build --prod
     ```
 
 3. **Serve the application using a static server.** You can use a package like `http-server`:
