@@ -13,22 +13,29 @@
         <select id="medicationName" [(ngModel)]="medicationName" class="w-1/3 border rounded px-3 py-2">
           <option *ngFor="let medicine of allowedMedicines" [value]="medicine">{{ medicine }}</option>
         </select>        
-        <label for="dosage" class="block mr-2 ml-2 py-2">Dosage:</label>
+        <label for="dosage" class="block mr-2 ml-2 py-2">Dosage in mg:</label>
         <input type="text" id="dosage" [(ngModel)]="dosage" class="w-1/6 border rounded px-3 py-2 mr-2">
-        <label for="frequency" class="block mr-2 ml-2 py-2">Frequency:</label>
+        <label for="frequency" class="block mr-2 ml-2 py-2">Frequency per day:</label>
         <input type="text" id="frequency" [(ngModel)]="frequency" class="w-1/3 border rounded px-3 py-2 mr-2">
         <button (click)="addPrescription()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
       </div>
     </div>
     <!-- display the list of added prescriptions -->
     <div *ngIf="prescriptions.length > 0" class="mb-4">
-      <h3>Prescriptions:</h3>
+      <h3 class="text-lg font-semibold mb-2">Prescriptions:</h3>
       <ul>
-        <li *ngFor="let prescription of prescriptions">
-          {{ prescription.name }} - {{ prescription.dosage }} - {{ prescription.frequency }}
+        <li *ngFor="let prescription of prescriptions" class="mb-2">
+          <div class="bg-gray-100 p-4 rounded-lg">
+            <p class="text-gray-800">
+              Medication: <span class="font-semibold">{{ prescription.name }}</span> - 
+              Dosage: <span class="font-semibold">{{ prescription.dosage }}mg</span> - 
+              Frequency: <span class="font-semibold">{{ prescription.frequency }} times per day</span>
+            </p>
+          </div>
         </li>
       </ul>
     </div>
+
     <!-- submit report button -->
     <div>
       <button (click)="submitReport()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit Report</button>

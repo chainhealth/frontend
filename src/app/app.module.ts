@@ -55,6 +55,12 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatProgressSpinnerModule,
     HttpClientModule,
   ],
+
+  /** multi: true: This tells Angular to allow multiple interceptors to be registered
+   *  under the same token (HTTP_INTERCEPTORS). If you set multi: false (or omit it),
+   *  Angular will replace any existing provider for that token with the new one.
+   *  By using multi: true, you can have multiple interceptors in your application,
+   *  which will all be applied in the order they are provided. */
   providers: [
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
