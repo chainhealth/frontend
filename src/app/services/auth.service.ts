@@ -29,19 +29,6 @@ export class AuthService {
   get role() {
     return this.userRole.asObservable();
   }
-  setRole(role: string): void {
-    localStorage.setItem('role', role);
-    this.roleSubject.next(role);
-  }
-
-  getRole(): string {
-    return this.roleSubject.value;
-  }
-
-  clearRole(): void {
-    localStorage.removeItem('role');
-    this.roleSubject.next('guest');
-  }
 
   login(token: string, username: string): void {
     localStorage.setItem('token', token);
