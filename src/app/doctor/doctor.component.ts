@@ -84,11 +84,10 @@ export class DoctorComponent implements OnInit{
 
   // handle the submission of the report data by getting the report from the child component DoctorReportComponent
   handleReportSubmission(eventData: { report: string, prescriptions: { name: string, dosage: string, frequency: string }[] }) {
-
     // ensure this.patientId is not null before calling writePrescription
     if (this.patientId) {
       // prepare data to send to api
-      this.userError = false; // Reset userError
+      this.userError = false; // to check if for dosage and frequency errors
       const prescriptionData = {
         report: eventData.report,
         medicine: eventData.prescriptions.map(p => {
@@ -111,7 +110,6 @@ export class DoctorComponent implements OnInit{
         // call api service to submit prescription
         this.apiService.writePrescription(this.patientId, prescriptionData).subscribe(
           (response) => {
-            console.log('Prescription submitted successfully:', response);
             this.isSuccess = true;
             this.successMessage = 'Report submitted successfully!';
             this.isLoading = false;
