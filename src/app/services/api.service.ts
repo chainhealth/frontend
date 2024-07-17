@@ -145,7 +145,7 @@ export class ApiService {
           break;
         default:
           errorMessage = `Server error: ${error.status}.`;
-          window.alert(errorMessage);
+          window.alert("Something wrong happend. Please try again later.");
           break;
       }
     }
